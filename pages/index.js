@@ -1,76 +1,158 @@
-import Head from 'next/head'
+import Head from 'next/head';
+
+import AppNavigator from '../components/navigator';
+import Intro from '../components/intro';
+import CoreTechnology from '../components/core_technology';
+import AboutUs from '../components/about_us';
+import Solutions from '../components/solutions';
+import Team from '../components/team';
+import SectionHeader from '../components/section_header';
+import Footer from '../components/footer';
+import { useState, useRef, useEffect } from 'react';
 
 export default function Home() {
+
+  const [visibleSection, setVisibleSection] = useState();
+
+  const headerRef = useRef(null);
+  const technologyRef = useRef(null);
+  const aboutRef = useRef(null);
+  const solutionRef = useRef(null);
+  const teamRef = useRef(null);
+  const contactRef = useRef(null);
+
+  const sectionRefs = [
+    {section: 'technology', ref: technologyRef},
+    {section: 'about', ref: aboutRef},
+    {section: 'solutions', ref: solutionRef},
+    {section: 'team', ref: teamRef},
+    {section: 'contact', ref: contactRef},
+  ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 60;
+
+      const selected = sectionRefs.find(({ section, ref }) => {
+        const ele = ref.current;
+        if (ele) {
+          const { offsetBottom, offsetTop } = getDimensions(ele);
+          return scrollPosition > offsetTop && scrollPosition < offsetBottom;
+        }
+      });
+
+      if (selected) {
+        setVisibleSection(selected.section);
+      }else{
+        setVisibleSection();
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const getDimensions = (ele) => {
+    const { height } = ele.getBoundingClientRect();
+    const offsetTop = ele.offsetTop;
+    const offsetBottom = offsetTop + height;
+  
+    return {
+      height,
+      offsetTop,
+      offsetBottom,
+    };
+  };
+
+  const scrollTo = e => {
+    console.log(e);
+
+    e.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  };
+
+  const scrollToSection = (section) => {
+
+    switch(section){
+      case 'technology':
+        scrollTo(technologyRef.current);
+        break;
+
+      case 'about':
+        scrollTo(aboutRef.current);
+        break;
+
+      case 'solutions':
+        scrollTo(solutionRef.current);
+        break;
+
+      case 'team':
+        scrollTo(teamRef.current);
+        break;
+
+      case 'contact':
+        scrollTo(contactRef.current);
+        break;
+    }
+  }
+
   return (
     <div className="container">
       <Head>
-        <title>Create Next App</title>
+        <title>UDP</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <AppNavigator selected={visibleSection} onScrollTo={scrollToSection}/>
+
       <main>
-        <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+        <Intro />
 
-        <p className="description">
-          Get started by editing <code>pages/index.js</code>
-        </p>
+        <div ref={technologyRef} className='feature' style={{backgroundColor: '#f6f6f6', textAlign: 'center'}}>
+          <SectionHeader name='Core Technology' />
+          <CoreTechnology />
+        </div>
 
-        <div className="grid">
-          <a href="https://nextjs.org/docs" className="card">
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+        <div ref={aboutRef} className='feature'>
+          <AboutUs />
+        </div>
 
-          <a href="https://nextjs.org/learn" className="card">
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+        <div ref={solutionRef} className='feature' style={{backgroundColor: '#f6f6f6', textAlign: 'center'}} >
+          <SectionHeader name='solutions' />
+          <Solutions />
+        </div>
 
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className="card"
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="card"
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+        <div ref={teamRef} className='feature' style={{textAlign: 'center'}}>
+          <SectionHeader name='meat the team' /> 
+          <Team />
         </div>
       </main>
 
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
-        </a>
+      <footer ref={contactRef}>
+        <Footer />  
       </footer>
 
       <style jsx>{`
         .container {
+          min-width: 100vw;
           min-height: 100vh;
-          padding: 0 0.5rem;
+          padding: 0;
           display: flex;
           flex-direction: column;
           justify-content: center;
           align-items: center;
         }
 
+        .feature{
+          padding: 100px 0;
+        }
+
         main {
-          padding: 5rem 0;
           flex: 1;
           display: flex;
           flex-direction: column;
@@ -80,7 +162,6 @@ export default function Home() {
 
         footer {
           width: 100%;
-          height: 100px;
           border-top: 1px solid #eaeaea;
           display: flex;
           justify-content: center;
@@ -138,16 +219,6 @@ export default function Home() {
             DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
         }
 
-        .grid {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-wrap: wrap;
-
-          max-width: 800px;
-          margin-top: 3rem;
-        }
-
         .card {
           margin: 1rem;
           flex-basis: 45%;
@@ -181,13 +252,6 @@ export default function Home() {
         .logo {
           height: 1em;
         }
-
-        @media (max-width: 600px) {
-          .grid {
-            width: 100%;
-            flex-direction: column;
-          }
-        }
       `}</style>
 
       <style jsx global>{`
@@ -195,9 +259,23 @@ export default function Home() {
         body {
           padding: 0;
           margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
+          font-family: 'Open Sans', sans-serif;
+          color: #777
+          font-weight: 400
+        }
+
+        .grid {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          padding: 0 10%;
+        }
+
+        @media (max-width: 600px) {
+          .grid {
+            width: 100%;
+            flex-direction: column;
+          }
         }
 
         * {
