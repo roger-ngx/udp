@@ -3,8 +3,8 @@ import React from 'react';
 const Person = ({img, name, role}) => {
 
     return (
-        <div style={{flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-            <img src={img} style={{width: '80%', marginBottom: 10}}/>
+        <div style={{flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: 40}}>
+            <img src={img} style={{width: '80%', maxWidth: 200 , marginBottom: 10}}/>
             <h4 style={{fontSize: 18, color: '#333', fontWeight: 600, margin: '0 0 4px 0'}}>{name}</h4>
             <p style={{fontSize: 15, color: '#888', margin: 0}}>{role}</p>
         </div>
@@ -14,7 +14,7 @@ const Person = ({img, name, role}) => {
 const Team = () => {
 
     return (
-        <div>
+        <div style={{width: '100vw'}}>
             <p style={{margin: '0 0 48px 0'}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit duis sed dapibus leonec.</p>
             <div className='grid'>
                 <Person

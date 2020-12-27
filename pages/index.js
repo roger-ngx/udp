@@ -31,15 +31,25 @@ export default function Home() {
 
   useEffect(() => {
     const handleScroll = () => {
+      // const { height: headerHeight } = getDimensions(headerRef.current);
       const scrollPosition = window.scrollY + 60;
+      // console.log(scrollPosition);
 
-      const selected = sectionRefs.find(({ section, ref }) => {
+      let selected = sectionRefs.find(({ section, ref }) => {
         const ele = ref.current;
         if (ele) {
           const { offsetBottom, offsetTop } = getDimensions(ele);
+          // console.log(section, offsetTop, offsetBottom);
           return scrollPosition > offsetTop && scrollPosition < offsetBottom;
         }
       });
+
+      const windowHeight = Math.floor(window.pageYOffset + window.innerHeight);
+      const {offsetBottom} = getDimensions(contactRef.current);
+
+      if(windowHeight > Math.floor(offsetBottom) - 50){
+        selected = sectionRefs[4];
+      }
 
       if (selected) {
         setVisibleSection(selected.section);
@@ -260,8 +270,10 @@ export default function Home() {
           padding: 0;
           margin: 0;
           font-family: 'Open Sans', sans-serif;
-          color: #777
-          font-weight: 400
+          text-rendering: optimizeLegibility !important;
+          -webkit-font-smoothing: antialiased !important;
+          color: #777;
+          font-weight: 400;
         }
 
         .grid {

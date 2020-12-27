@@ -3,10 +3,8 @@ import React from 'react';
 const Solution = ({img, title, content, style}) => {
 
     return(
-        <div style={{...style, flex: 1, display: 'flex', flexDirection: 'column', marginTop: 24}}>
-            <div style={{height: 150}}>
-                <img style={{width: '50%', margin: 'auto auto'}} src={img} />
-            </div>
+        <div style={{...style, flex: 1, display: 'flex', flexDirection: 'column', marginTop: 48}}>
+            <img style={{width: '50%', margin: 'auto auto'}} src={img} />
             <h3>{title}</h3>
             <p>{content}</p>
         </div>
@@ -23,7 +21,7 @@ const Solutions = () => {
                     content='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.'
                 />
                 <Solution
-                    style={{padding: '0 20px'}}
+                    style={{padding: '0 40px'}}
                     img='/img/services/SentimentAnalysis.jpg'
                     title='Sentiment Analysis'
                     content='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at. Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
@@ -41,7 +39,7 @@ const Solutions = () => {
                     content='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.'
                 />
                 <Solution
-                    style={{padding: '0 20px'}}
+                    style={{padding: '0 40px'}}
                     img='/img/services/Paperless.jpg'
                     title='Paperless'
                     content='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.'
