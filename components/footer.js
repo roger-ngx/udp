@@ -43,7 +43,7 @@ const Footer = () => {
                         send message
                     </Button>
                 </div>
-                <div style={{flex: 1, marginLeft: 48}}>
+                <div className='address' style={{flex: 1}}>
                     <h3 style={{marginTop: 0}}>Contact Info</h3>
                     <p>
                         <span>Address</span>
@@ -60,6 +60,22 @@ const Footer = () => {
                     </p>
                 </div>
             </div>
+            <style jsx>
+                {
+                    `
+                    .address{
+                        margin-left: 32px
+                    }
+
+                    @media(max-width: 600px){
+                        .address{
+                            margin-left: 0;
+                            margin-top: 32px
+                        }
+                    }
+                    `
+                }
+            </style>
         </div>
     )
 }

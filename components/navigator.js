@@ -65,24 +65,26 @@ const AppNavigator = ({selected, onScrollTo}) => {
                     <Typography variant="h6" className={styles.title}>
                         UDP
                     </Typography>
-                    <Link
-                      onClick={() => onScrollTo('technology')}
-                      style={{color: selected === 'technology' ? 'red' : 'white', marginLeft: 24}}
-                    >
-                      Technology
-                    </Link>
-                    <Link onClick={() => onScrollTo('about')} style={{color: selected === 'about' ? 'red' : 'white', marginLeft: 24}}>
-                      About
-                    </Link>
-                    <Link onClick={() => onScrollTo('solutions')} style={{color: selected === 'solutions' ? 'red' : 'white', marginLeft: 24}}>
-                      Solutions
-                    </Link>
-                    <Link onClick={() => onScrollTo('team')} style={{color: selected === 'team' ? 'red' : 'white', marginLeft: 24}}>
-                      Team
-                    </Link>
-                    <Link onClick={() => onScrollTo('contact')} style={{color: selected === 'contact' ? 'red' : 'white', marginLeft: 24}}>
-                      Contact
-                    </Link>
+                    <div className='link'>
+                        <Link
+                          onClick={() => onScrollTo('technology')}
+                          style={{color: selected === 'technology' ? 'red' : 'white', marginLeft: 24}}
+                        >
+                          Technology
+                        </Link>
+                        <Link onClick={() => onScrollTo('about')} style={{color: selected === 'about' ? 'red' : 'white', marginLeft: 24}}>
+                          About
+                        </Link>
+                        <Link onClick={() => onScrollTo('solutions')} style={{color: selected === 'solutions' ? 'red' : 'white', marginLeft: 24}}>
+                          Solutions
+                        </Link>
+                        <Link onClick={() => onScrollTo('team')} style={{color: selected === 'team' ? 'red' : 'white', marginLeft: 24}}>
+                          Team
+                        </Link>
+                        <Link onClick={() => onScrollTo('contact')} style={{color: selected === 'contact' ? 'red' : 'white', marginLeft: 24}}>
+                          Contact
+                        </Link>
+                    </div>
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -96,6 +98,23 @@ const AppNavigator = ({selected, onScrollTo}) => {
             >
                 {list()}
             </Drawer>
+
+            <style jsx>
+                {
+                    `
+                    .link{
+                        display: flex;
+                        flex-direction: row;
+                    }
+
+                    @media(max-width: 600px){
+                        .link{
+                            display: none;
+                        }
+                    }
+                    `
+                }
+            </style>
         </div>
     )
 }

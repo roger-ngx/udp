@@ -9,7 +9,7 @@ const AboutUs = () => {
             <div style={{flex: 1}}>
                 <img style={{width: '100%'}} src='/img/about.jpg' />
             </div>
-            <div style={{flex: 2, display: 'flex', flexDirection: 'column', marginLeft: 24, fontSize: 15}}>
+            <div className='about_detail' style={{flex: 2, display: 'flex', flexDirection: 'column', fontSize: 15}}>
                 <SectionHeader name='about us' align='left' />
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 <h3>Why Choose Us?</h3>
@@ -56,10 +56,19 @@ const AboutUs = () => {
                     flex-direction: row
                 }
 
+                .about_detail{
+                    margin-left: 24px;
+                }
+
                 @media (max-width: 600px){
                     #about .ul {
                         display: flex;
                         flex-direction: column
+                    }
+
+                    .about_detail{
+                        margin-left: 0px;
+                        margin-top: 24px;
                     }
                 }
                 `
