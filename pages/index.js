@@ -133,7 +133,7 @@ export default function Home() {
         </div>
 
         <div ref={solutionRef} className='feature' style={{backgroundColor: '#f6f6f6', textAlign: 'center'}} >
-          <SectionHeader name='solutions' />
+          <SectionHeader name='Products' />
           <Solutions />
         </div>
 
