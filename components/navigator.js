@@ -66,15 +66,22 @@ const AppNavigator = ({selected, onScrollTo}) => {
                         UDP
                     </Typography>
                     <div className='link'>
-                        <Link
+                       {/* <Link
                           onClick={() => onScrollTo('technology')}
                           style={{color: selected === 'technology' ? 'red' : 'white', marginLeft: 24}}
                         >
-                          Technology
+                       Technology
+                        </Link> */}
+                        
+                        <Link
+                          onClick={() => onScrollTo('about')}
+                          style={{color: selected === 'about' ? 'red' : 'white', marginLeft: 24}}
+                        >
+                       About
                         </Link>
-                        <Link onClick={() => onScrollTo('about')} style={{color: selected === 'about' ? 'red' : 'white', marginLeft: 24}}>
+                        {/* <Link onClick={() => onScrollTo('about')} style={{color: selected === 'about' ? 'red' : 'white', marginLeft: 24}}>
                           About
-                        </Link>
+                        </Link> */}
                         <Link onClick={() => onScrollTo('solutions')} style={{color: selected === 'solutions' ? 'red' : 'white', marginLeft: 24}}>
                           Solutions
                         </Link>

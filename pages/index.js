@@ -123,10 +123,10 @@ export default function Home() {
       <main>
         <Intro />
 
-        <div ref={technologyRef} className='feature' style={{backgroundColor: '#f6f6f6', textAlign: 'center'}}>
+        {/* <div ref={technologyRef} className='feature' style={{backgroundColor: '#f6f6f6', textAlign: 'center'}}>
           <SectionHeader name='Core Technology' />
           <CoreTechnology />
-        </div>
+        </div> */}
 
         <div ref={aboutRef} className='feature'>
           <AboutUs />
