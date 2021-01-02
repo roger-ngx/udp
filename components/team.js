@@ -35,7 +35,7 @@ const Team = () => {
                 <Person
                     img='/img/team/thanh.jpg'
                     name='Thanh'
-                    role='Loser'
+                    role='manager'
                 />
             </div>
         </div>
