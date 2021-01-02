@@ -9,7 +9,7 @@ const Intro = () => {
                 display: 'flex',
                 width: '100vw',
                 height: '650px',
-                backgroundImage: `url('/img/intro-bg.jpg')`,
+                backgroundImage: `url('/img/Blue-Cube.jpg')`,
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center center',
                 backgroundSize: 'cover',
