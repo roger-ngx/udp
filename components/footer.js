@@ -47,16 +47,16 @@ const Footer = () => {
                     <h3 style={{marginTop: 0}}>Contact Info</h3>
                     <p>
                         <span>Address</span>
-                        <div>4321 California St,<br/>
-                        San Francisco, CA 12345</div>
+                        <div>Saechang-ro 11, Gongdeok-dong,<br/>
+                        Mapo-gu, Seoul, S. Korea</div>
                     </p>
                     <p>
                         <span>Phone</span>
-                        <div>+1 123 456 1234</div>
+                        <div>+82 10 3087 8988</div>
                     </p>
                     <p>
                         <span>Email</span>
-                        <div>thanh@udpsol.com</div>
+                        <div>nqphuoc@gmail.com</div>
                     </p>
                 </div>
             </div>
