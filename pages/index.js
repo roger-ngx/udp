@@ -138,7 +138,7 @@ export default function Home() {
         </div>
 
         <div ref={teamRef} className='feature' style={{textAlign: 'center'}}>
-          <SectionHeader name='meat the team' /> 
+          <SectionHeader name='Leadership Team' /> 
           <Team />
         </div>
       </main>
