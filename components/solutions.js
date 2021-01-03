@@ -18,21 +18,54 @@ const Solution = ({img, title, content, link, style}) => {
 const Solutions = () => {
     return(
         <>
+            <div className='grid' style={{paddingTop: 0}}>
+                <Solution
+                    style={{marginRight: 24}}
+                    img='/img/services/Chatbot_icon.png'
+                    title='Comprehensive Chatbot'
+                    content='Understand questioner natural language and answer based on learned domain knowledges.'
+                    link='products/annotation'                
+                />
+                <Solution
+                    img='/img/services/Recommended-icon.png'
+                    title='Recommendation System'
+                    content='Recommend the most suitable product/service for each individual customer.'
+                    link='products/annotation'                
+                />
+            </div>
+
             <div className='grid' style={{paddingBottom: 0}}>
                 <Solution
                     style={{marginRight: 24}}
-                    img='/img/services/AutoAnnotation_icon.png'
-                    title='Automatic Annotation'
-                    content='Automatically annotate text data with predefined tags to train AI models.'
+                    img='/img/services/Sentiment_icon.png'
+                    title='Sentiment Analysis'
+                    content='Analyze customers sentiment on a product or service.'
                     link='products/annotation'
                 />
                 <Solution
-                    img='/img/services/classification_icon.png'
+                    img='/img/services/CustomerReview_icon.png'
+                    title='Customer Review Analysis'
+                    content='Analyze customers rating on all aspects of a product or service.'
+                    link='products/annotation'                
+                />
+            </div>
+
+            <div className='grid' style={{paddingTop: 0}}>
+                <Solution
+                    style={{marginRight: 24}}
+                    img='/img/services/SemanticSearch_icon.png'
+                    title='Semantic Search'
+                    content='Understand and infer meaning the meaning of words and documents to deliver precise answers.'
+                    link='products/annotation'                
+                />
+                 <Solution
+                    img='/img/services/Classification_icon.png'
                     title='Content Classification'
                     content='Classify free-text documents by predefined categories to help organize content.'
                     link='products/classification'
                 />
             </div>
+
             <div className='grid' style={{paddingBottom: 0}}>
                 <Solution
                     style={{marginRight: 24}}
@@ -42,27 +75,13 @@ const Solutions = () => {
                     link='products/entity'
                 />
                 <Solution
-                    img='/img/services/MachineTranslation.jpg'
-                    title='Machine Translation'
-                    content='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.'
+                    img='/img/services/AutoAnnotation_icon.png'
+                    title='Automatic Annotation'
+                    content='Automatically annotate text data with predefined tags to train AI models.'
                     link='products/annotation'
                 />
             </div>
-            <div className='grid' style={{paddingTop: 0}}>
-                <Solution
-                    style={{marginRight: 24}}
-                    img='/img/services/Paperless.jpg'
-                    title='Paperless'
-                    content='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.'
-                    link='products/annotation'                
-                />
-                <Solution
-                    img='/img/services/QuestionAnswering.jpg'
-                    title='Question & Answering'
-                    content='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.'
-                    link='products/annotation'                
-                />
-            </div>
+
         </>     
     )
 }
