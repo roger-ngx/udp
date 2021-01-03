@@ -36,7 +36,6 @@ const Team = () => {
 
     return (
         <div style={{width: '100vw'}}>
-            <p style={{margin: '0 0 48px 0'}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit duis sed dapibus leonec.</p>
             <div className='grid'>
                 <Person
                     img='/img/team/phuoc.jpg'
