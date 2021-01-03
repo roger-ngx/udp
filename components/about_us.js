@@ -11,7 +11,7 @@ const AboutUs = () => {
             </div>
             <div className='about_detail' style={{flex: 2, display: 'flex', flexDirection: 'column', fontSize: 15}}>
                 <SectionHeader name='about us' align='left' />
-                <p>Established in Seoul, S. Korea in 2020, UDP - User Data Processing Solution - Solution is an entrepreneur gathering Data Scientists and Natural Language Processing Specialists. UDP Sol provides NLP-based AI solutions to benefit customer businesses from their data. </p>
+                <p>Established in Seoul, S. Korea in 2020, UDP - User Data Processing Solution - Solution is an entrepreneur gathering Data Scientists and Natural Language Processing Specialists. UDP Solution provides NLP-based AI solutions to benefit customer businesses from their data. </p>
                 <div className='ul'>
                     <ul>
                         <li>Insights from Customers</li>
