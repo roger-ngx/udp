@@ -83,7 +83,7 @@ const AppNavigator = ({selected, onScrollTo}) => {
                           About
                         </Link> */}
                         <Link onClick={() => onScrollTo('solutions')} style={{color: selected === 'solutions' ? 'grey' : 'white', marginLeft: 24}}>
-                          Solutions
+                          Product
                         </Link>
                         <Link onClick={() => onScrollTo('team')} style={{color: selected === 'team' ? 'grey' : 'white', marginLeft: 24}}>
                           Team
