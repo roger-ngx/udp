@@ -23,7 +23,7 @@ const Solutions = () => {
                     style={{marginRight: 24}}
                     img='/img/services/AutoAnnotation_icon.png'
                     title='Automatic Annotation'
-                    content='Automatically annotate text data based on predefined categories and entities.'
+                    content='Automatically annotate text data with predefined tags to train AI models.'
                     link='products/annotation'
                 />
                 <Solution
@@ -36,8 +36,8 @@ const Solutions = () => {
             <div className='grid' style={{paddingBottom: 0}}>
                 <Solution
                     style={{marginRight: 24}}
-                    img='/img/services/InformationExtraction.jpg'
-                    title='Entity Extraction'
+                    img='/img/services/InfoExtraction_icon.png'
+                    title='Information Extraction'
                     content='Recognize and extract meaningful entities, such as a person, an organization, or location from any text descriptions.'
                     link='products/entity'
                 />
