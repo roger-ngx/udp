@@ -5,14 +5,14 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-import AppNavigator from '../components/navigator';
-import Intro from '../components/intro';
-import CoreTechnology from '../components/core_technology';
-import AboutUs from '../components/about_us';
-import Solutions from '../components/solutions';
-import Team from '../components/team';
-import SectionHeader from '../components/section_header';
-import Footer from '../components/footer';
+import AppNavigator from '../../components/navigator';
+import Intro from '../../components/intro';
+import CoreTechnology from '../../components/core_technology';
+import AboutUs from '../../components/about_us';
+import Solutions from '../../components/solutions';
+import Team from '../../components/team';
+import SectionHeader from '../../components/section_header';
+import Footer from '../../components/footer';
 import { useState, useRef, useEffect } from 'react';
 import { TextField, Button } from '@material-ui/core';
 import { throttle } from 'lodash';
@@ -20,7 +20,7 @@ import { throttle } from 'lodash';
 let lastScrollTop = 0;
 let savedTranslate = 0;
 
-export default function Annotation() {
+export default function Entity() {
 
   const [ translateY, setTranslateY ] = useState(0);
 
@@ -65,24 +65,24 @@ export default function Annotation() {
           }}
         >
           <div className='grid' style={{transform: `translateY(${translateY}px)`}}>
-              <div style={{flex: 1}}>
+              <div style={{flex: 1, marginRight: 20}}>
                   <h1>Natural Language Understanding API - NER</h1>
                   <p>NER API extracts meaningful keywords for any text descriptions. It’s being used for automatic tagging of keywords and the better AD targeting.</p>
               </div>
-              <div>
-                <img src='/img/annotation/NER.gif' style={{height: 290}}/>
+              <div style={{flex: 1}}>
+                <img src='/img/annotation/NER.gif' style={{width: '100%'}}/>
               </div>
           </div>
         </div>
 
         <div id='content' style={{marginTop: 400, backgroundColor: 'white', padding: '55px 0'}}>
           <div className='grid'>
-            <div style={{flex: 1}}>
+            <div style={{flex: 1, marginRight: 20}}>
                 <h1>NER</h1>
                 <p>A travel company uses UDP's NER API to automatically identified named entities specific to their company’s needs and resulted in 70% increase in structured and consumable named entities.</p>
             </div>
-            <div>
-              <img src='/img/annotation/NER-CS.png' style={{height: 300}}/>
+            <div style={{flex: 1}}>
+              <img src='/img/annotation/NER-CS.png' style={{width: '100%'}}/>
             </div>
           </div>
 
