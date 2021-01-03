@@ -55,7 +55,7 @@ const Solutions = () => {
                     style={{marginRight: 24}}
                     img='/img/services/SemanticSearch_icon.png'
                     title='Semantic Search'
-                    content='Understand and infer meaning the meaning of words and documents to deliver precise answers.'
+                    content='Understand and infer the meaning of words and documents to deliver precise answers.'
                     link='products/annotation'                
                 />
                  <Solution
