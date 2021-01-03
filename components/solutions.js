@@ -59,7 +59,7 @@ const Solutions = () => {
                     link='products/annotation'                
                 />
                  <Solution
-                    img='/img/services/Classification_icon.png'
+                    img='/img/services/classification_icon.png'
                     title='Content Classification'
                     content='Classify free-text documents by predefined categories to help organize content.'
                     link='products/classification'
