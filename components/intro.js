@@ -26,7 +26,7 @@ const Intro = () => {
                 }}
             >
                 <h1>Making Your Data Beneficial</h1>
-                <p style={{maxWidth: '90%'}}>UDP provides NLP-based AI solutions to achieve insightful benefits from your business data.</p>
+                <p style={{maxWidth: '90%'}}>UDP provides NLP-based AI solutions to achieve insightful business benefits.</p>
                 <Button variant='contained' color='primary'>LEARN MORE</Button>
             </div>
         </Paper>
