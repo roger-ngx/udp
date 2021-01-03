@@ -47,7 +47,7 @@ const Footer = () => {
                     <h3 style={{marginTop: 0}}>Contact Info</h3>
                     <p>
                         <span>Address</span>
-                        <div>Saechang-ro 11, Gongdeok-dong,<br/>
+                        <div>9 Fl, Saechang-ro 11, Gongdeok-dong,<br/>
                         Mapo-gu, Seoul, S. Korea</div>
                     </p>
                     <p>
