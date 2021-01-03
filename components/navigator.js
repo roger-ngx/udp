@@ -63,7 +63,7 @@ const AppNavigator = ({selected, onScrollTo}) => {
                         <MenuIcon onClick={() => setOpenDrawer(!isOpenDrawer)}/>
                     </IconButton>
                     <Typography variant="h6" className={styles.title}>
-                        UDP
+                        UDP Solution
                     </Typography>
                     <div className='link'>
                        {/* <Link
@@ -75,20 +75,20 @@ const AppNavigator = ({selected, onScrollTo}) => {
                         
                         <Link
                           onClick={() => onScrollTo('about')}
-                          style={{color: selected === 'about' ? 'red' : 'white', marginLeft: 24}}
+                          style={{color: selected === 'about' ? 'grey' : 'white', marginLeft: 24}}
                         >
                        About
                         </Link>
                         {/* <Link onClick={() => onScrollTo('about')} style={{color: selected === 'about' ? 'red' : 'white', marginLeft: 24}}>
                           About
                         </Link> */}
-                        <Link onClick={() => onScrollTo('solutions')} style={{color: selected === 'solutions' ? 'red' : 'white', marginLeft: 24}}>
+                        <Link onClick={() => onScrollTo('solutions')} style={{color: selected === 'solutions' ? 'grey' : 'white', marginLeft: 24}}>
                           Solutions
                         </Link>
-                        <Link onClick={() => onScrollTo('team')} style={{color: selected === 'team' ? 'red' : 'white', marginLeft: 24}}>
+                        <Link onClick={() => onScrollTo('team')} style={{color: selected === 'team' ? 'grey' : 'white', marginLeft: 24}}>
                           Team
                         </Link>
-                        <Link onClick={() => onScrollTo('contact')} style={{color: selected === 'contact' ? 'red' : 'white', marginLeft: 24}}>
+                        <Link onClick={() => onScrollTo('contact')} style={{color: selected === 'contact' ? 'grey' : 'white', marginLeft: 24}}>
                           Contact
                         </Link>
                     </div>
