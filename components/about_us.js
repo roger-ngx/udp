@@ -11,14 +11,15 @@ const AboutUs = () => {
             </div>
             <div className='about_detail' style={{flex: 2, display: 'flex', flexDirection: 'column', fontSize: 15}}>
                 <SectionHeader name='about us' align='left' />
-                <p>Established in Seoul, S. Korea in 2020, UDP Sol - User Data Processing Solution - is an entrepreneur gathering Data Scientists and Natural Language Processing Specialists. UDP Sol provides insightful benefits for customer businesses from their data by the following NLP-based AI engines. </p>
+                <p>Established in Seoul, S. Korea in 2020, UDP - User Data Processing Solution - Solution is an entrepreneur gathering Data Scientists and Natural Language Processing Specialists. UDP Sol provides NLP-based AI solutions to benefit customer businesses from their data. </p>
                 <div className='ul'>
                     <ul>
-                        <li>Automatic annotate text data </li>
-                        <li>Categorize documents</li>
-                        <li>Analyze consumer's reviews and sentiments</li>
-                        <li>Recommend the most suitable products for each individual consumer</li>
-                        <li>Automatic answer consumer's concerns - comprehensive Chatbot</li>
+                        <li>Insights from Customers</li>
+                        <li>Enable Natural Conversations</li>
+                        <li>Allocate Human Resources Effectively</li>
+                        <li>Improve Customer Satisfaction</li>
+                        <li>Reduce Costs and Inefficiencies</li>
+                        <li>Benefit from Market Research and Analysis</li>
                     </ul>
                 </div>
             </div>
