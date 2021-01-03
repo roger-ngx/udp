@@ -40,22 +40,22 @@ const Team = () => {
             <div className='grid'>
                 <Person
                     img='/img/team/phuoc.jpg'
-                    name='Phuoc'
+                    name='Quang-Phuoc Nguyen'
                     role='Manager test'
                 />
                 <Person
                     img='/img/team/tu.jpg'
-                    name='Tu'
+                    name='Tony Quach'
                     role='Manager'
                 />
                 <Person
                     img='/img/team/dung.jpg'
-                    name='Dung'
+                    name='James Vo'
                     role='Manager'
                 />
                 <Person
                     img='/img/team/thanh.jpg'
-                    name='Thanh'
+                    name='Roger Nguyen'
                     role='software engineer'
                 />
             </div>
