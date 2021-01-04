@@ -115,7 +115,7 @@ export default function Home() {
     <div className="container">
       <Head>
         <title>UDP</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/logo.png" />
       </Head>
 
       <AppNavigator selected={visibleSection} onScrollTo={scrollToSection}/>
