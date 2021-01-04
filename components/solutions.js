@@ -5,7 +5,7 @@ const Solution = ({img, title, content, link, style}) => {
 
     return(
         <div style={{...style, flex: 1, display: 'flex', flexDirection: 'row', marginTop: 48}}>
-            <img style={{width: 90, height: 90, marginRight: 24}} src={img} />
+            { <img style={{width: 80, height: 80, marginRight: 24}} src={img} /> }
             <div style={{display: 'flex', flexDirection: 'column', textAlign: 'left'}}>
                 <h3 style={{marginTop: 0, marginBottom: 8, color: '#333'}}>{title}</h3>
                 <p style={{marginTop: 0}}>{content}</p>

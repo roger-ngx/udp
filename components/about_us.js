@@ -7,7 +7,7 @@ const AboutUs = () => {
     return (
         <div className='grid' id='about'>
             <div style={{flex: 1}}>
-                <img style={{width: '100%'}} src='/img/about.jpg' />
+                <img style={{width: '100%'}} src='/img/about.png' />
             </div>
             <div className='about_detail' style={{flex: 2, display: 'flex', flexDirection: 'column', fontSize: 15}}>
                 <SectionHeader name='about us' align='left' />
