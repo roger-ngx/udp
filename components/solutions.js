@@ -30,7 +30,7 @@ const Solutions = () => {
                     img='/img/services/Recommended-icon.png'
                     title='Recommendation System'
                     content='Recommend the most suitable product/service for each individual customer.'
-                    link='products/annotation'                
+                    link='products/underconstruction'                
                 />
             </div>
 
@@ -40,13 +40,13 @@ const Solutions = () => {
                     img='/img/services/Sentiment_icon.png'
                     title='Sentiment Analysis'
                     content='Analyze customers sentiment on a product or service.'
-                    link='products/annotation'
+                    link='products/underconstruction'
                 />
                 <Solution
                     img='/img/services/CustomerReview_icon.png'
                     title='Customer Review Analysis'
                     content='Analyze customers rating on all aspects of a product or service.'
-                    link='products/annotation'                
+                    link='products/underconstruction'                
                 />
             </div>
 
@@ -56,13 +56,13 @@ const Solutions = () => {
                     img='/img/services/SemanticSearch_icon.png'
                     title='Semantic Search'
                     content='Understand and infer the meaning of words and documents to deliver precise answers.'
-                    link='products/annotation'                
+                    link='products/underconstruction'                
                 />
                  <Solution
                     img='/img/services/classification_icon.png'
                     title='Content Classification'
                     content='Classify free-text documents by predefined categories to help organize content.'
-                    link='products/classification'
+                    link='products/underconstruction'
                 />
             </div>
 
@@ -72,13 +72,13 @@ const Solutions = () => {
                     img='/img/services/InfoExtraction_icon.png'
                     title='Information Extraction'
                     content='Recognize and extract meaningful entities, such as a person, an organization, or location from any text descriptions.'
-                    link='products/entity'
+                    link='products/underconstruction'
                 />
                 <Solution
                     img='/img/services/AutoAnnotation_icon.png'
                     title='Automatic Annotation'
                     content='Automatically annotate text data with predefined tags to train AI models.'
-                    link='products/annotation'
+                    link='products/underconstruction'
                 />
             </div>
 
