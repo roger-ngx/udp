@@ -3,10 +3,10 @@ import React from 'react';
 const Person = ({img, name, role}) => {
 
     return (
-        <div style={{flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: 40}}>
+        <div style={{flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '48px 0'}}>
             <div
                 style={{
-                    display: 'block',
+                    display: 'flex',
                     width: '80%',
                     maxWidth: 200,
                     marginBottom: 10,
@@ -47,11 +47,11 @@ const Team = () => {
                     name='Tony Quach'
                     role='Manager'
                 />
-                <Person
+                {/* <Person
                     img='/img/team/dung.jpg'
                     name='James Vo'
                     role='Manager'
-                />
+                /> */}
                 <Person
                     img='/img/team/thanh.jpg'
                     name='Roger Nguyen'

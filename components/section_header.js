@@ -24,6 +24,16 @@ const SectionHeader = ({name, color='#333', align='center'}) => {
                 height: 4px;
                 background: linear-gradient(to right, #5ca9fb 0%, #6372ff 100%);
             }
+
+            @media (max-width: 600px){
+                h2{
+                    text-align: center
+                }
+                h2:after{
+                    left: 50%;
+                    margin-left: -30px;
+                }
+            }
             `
         }
         </style>

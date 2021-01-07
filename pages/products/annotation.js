@@ -111,6 +111,7 @@ export default function Annotation() {
                 {/* <InputLabel id="demo-simple-select-label">Select an example to try</InputLabel> */}
                 <Select
                   style={{height: 40}}
+                  value=""
                 >
                   <MenuItem value="">
                     <em>Select an example to try</em>
@@ -167,7 +168,7 @@ export default function Annotation() {
             line-height: 2.8
         }
 
-        #content h1 {
+        h1 {
           margin-top: 0
         }
 
