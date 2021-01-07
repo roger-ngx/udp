@@ -25,8 +25,8 @@ const Intro = () => {
                     alignItems: 'center',
                 }}
             >
-                <h1>Making Your Data Beneficial</h1>
-                <p style={{maxWidth: '90%'}}>UDP provides NLP-based AI solutions to achieve insightful business benefits.</p>
+                <h1 style={{textAlign: 'center'}}>Making Your Data Beneficial</h1>
+                <p style={{textAlign: 'center', maxWidth: '90%'}}>UDP provides NLP-based AI solutions to achieve insightful business benefits.</p>
                 <Button variant='contained' color='primary'>LEARN MORE</Button>
             </div>
         </Paper>
