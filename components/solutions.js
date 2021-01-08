@@ -24,7 +24,7 @@ const Solutions = () => {
                     img='/img/services/Chatbot_icon.png'
                     title='Comprehensive Chatbot'
                     content='Understand questioner natural language and answer based on learned domain knowledges.'
-                    link='products/annotation'                
+                    link='products/machine_comprehension'                
                 />
                 <Solution
                     img='/img/services/Recommended-icon.png'
@@ -62,7 +62,7 @@ const Solutions = () => {
                     img='/img/services/classification_icon.png'
                     title='Content Classification'
                     content='Classify free-text documents by predefined categories to help organize content.'
-                    link='products/underconstruction'
+                    link='products/content_classification.js'
                 />
             </div>
 
@@ -72,7 +72,7 @@ const Solutions = () => {
                     img='/img/services/InfoExtraction_icon.png'
                     title='Information Extraction'
                     content='Recognize and extract meaningful entities, such as a person, an organization, or location from any text descriptions.'
-                    link='products/underconstruction'
+                    link='products/information_extraction'
                 />
                 <Solution
                     img='/img/services/AutoAnnotation_icon.png'

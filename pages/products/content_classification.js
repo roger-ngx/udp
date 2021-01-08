@@ -16,6 +16,7 @@ import Footer from '../../components/footer';
 import { useState, useRef, useEffect } from 'react';
 import { TextField, Button } from '@material-ui/core';
 import { throttle } from 'lodash';
+import DemoPage from '../../components/common/DemoPage';
 
 let lastScrollTop = 0;
 let savedTranslate = 0;
@@ -47,112 +48,107 @@ export default function Entity() {
 
   return (
     <div className="container">
-      <Head>
-        <title>UDP Sol</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <div style={{position: 'relative'}}>
-        <div
-          style={{
-            backgroundColor: '#6f42c1',
-            color: 'white',
-            padding: '55px 0',
-            width: '100%',
-            position: 'fixed',
-            top: 0, left: 0,
-            zIndex: -1,
-            height: 400
-          }}
-        >
-          <div className='grid' style={{transform: `translateY(${translateY}px)`}}>
+      <DemoPage>
+        <div style={{position: 'relative'}}>
+          <div
+            style={{
+              backgroundColor: '#6f42c1',
+              color: 'white',
+              padding: '55px 0',
+              width: '100%',
+              position: 'fixed',
+              top: 0, left: 0,
+              zIndex: -1,
+              height: 400
+            }}
+          >
+            <div className='grid' style={{transform: `translateY(${translateY}px)`}}>
+                <div style={{flex: 1, marginRight: 20}}>
+                    <h1>Natural Language Understanding API - NER</h1>
+                    <p>NER API extracts meaningful keywords for any text descriptions. It’s being used for automatic tagging of keywords and the better AD targeting.</p>
+                </div>
+                <div style={{flex: 1}}>
+                  <img src='/img/annotation/NER.gif' style={{width: '100%'}}/>
+                </div>
+            </div>
+          </div>
+
+          <div id='content' style={{marginTop: 400, backgroundColor: 'white', padding: '55px 0'}}>
+            <div className='grid'>
               <div style={{flex: 1, marginRight: 20}}>
-                  <h1>Natural Language Understanding API - NER</h1>
-                  <p>NER API extracts meaningful keywords for any text descriptions. It’s being used for automatic tagging of keywords and the better AD targeting.</p>
+                  <h1>NER</h1>
+                  <p>A travel company uses UDP's NER API to automatically identified named entities specific to their company’s needs and resulted in 70% increase in structured and consumable named entities.</p>
               </div>
               <div style={{flex: 1}}>
-                <img src='/img/annotation/NER.gif' style={{width: '100%'}}/>
+                <img src='/img/annotation/NER-CS.png' style={{width: '100%'}}/>
               </div>
+            </div>
+
+            <div style={{padding: '0 20%', marginTop: 55}}>
+                <h1>How it works</h1>
+                <p>NER Analyzer uses machine learning to reveal the structure and meaning of the text. You can extract information about people, places, and events, and better understand social media sentiment and customer conversations.</p>
+            </div>
+
+            <div style={{padding: '0 20%', marginTop: 55}}>
+              <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 20}}>
+                <h2 style={{margin: 0}}>Input text</h2>
+                <FormControl variant='outlined' style={{width: 200, marginLeft: 24}}>
+                  {/* <InputLabel id="demo-simple-select-label">English</InputLabel> */}
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value='en'
+                    style={{height: 40}}
+                  >
+                    <MenuItem value='en'>English</MenuItem>
+                    <MenuItem value='ko'>한국어</MenuItem>
+                    <MenuItem value='vi'>Tiếng Việt</MenuItem>
+                  </Select>
+                </FormControl>
+                <FormControl variant='outlined' style={{width: 200, marginLeft: 24}}>
+                  {/* <InputLabel id="demo-simple-select-label">Select an example to try</InputLabel> */}
+                  <Select
+                    style={{height: 40}}
+                  >
+                    <MenuItem value="">
+                      <em>Select an example to try</em>
+                    </MenuItem>
+                    <MenuItem value={10}>DVD Calibration settings lost after reset?</MenuItem>
+                    <MenuItem value={20}>How can I take multiple pictures in one frame on Sony a7iii?</MenuItem>
+                    <MenuItem value={30}>I bought 4K Android TV yesterday. When can I get this?</MenuItem>
+                  </Select>
+                </FormControl>
+              </div>
+              <TextField
+                placeholder='Select example to start'
+                variant='outlined'
+                style={{width: '100%'}}
+                multiline={true}
+                rows={5}
+              />
+              <div style={{textAlign: 'right', marginBottom: 30}}>
+                <Button
+                  variant='contained'
+                  color='secondary'
+                  style={{margin: '10px 0'}}
+                >
+                  submit
+                </Button>
+              </div>
+              
+              <h2 style={{margin: '0 0 16px 0'}}>Result</h2>
+              <TextField
+                placeholder='Input text above or try analyzer with our example'
+                variant='outlined'
+                style={{width: '100%'}}
+                multiline={true}
+                rows={5}
+                disabled
+              />
+            </div>
           </div>
         </div>
-
-        <div id='content' style={{marginTop: 400, backgroundColor: 'white', padding: '55px 0'}}>
-          <div className='grid'>
-            <div style={{flex: 1, marginRight: 20}}>
-                <h1>NER</h1>
-                <p>A travel company uses UDP's NER API to automatically identified named entities specific to their company’s needs and resulted in 70% increase in structured and consumable named entities.</p>
-            </div>
-            <div style={{flex: 1}}>
-              <img src='/img/annotation/NER-CS.png' style={{width: '100%'}}/>
-            </div>
-          </div>
-
-          <div style={{padding: '0 20%', marginTop: 55}}>
-              <h1>How it works</h1>
-              <p>NER Analyzer uses machine learning to reveal the structure and meaning of the text. You can extract information about people, places, and events, and better understand social media sentiment and customer conversations.</p>
-          </div>
-
-          <div style={{padding: '0 20%', marginTop: 55}}>
-            <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 20}}>
-              <h2 style={{margin: 0}}>Input text</h2>
-              <FormControl variant='outlined' style={{width: 200, marginLeft: 24}}>
-                {/* <InputLabel id="demo-simple-select-label">English</InputLabel> */}
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value='en'
-                  style={{height: 40}}
-                >
-                  <MenuItem value='en'>English</MenuItem>
-                  <MenuItem value='ko'>한국어</MenuItem>
-                  <MenuItem value='vi'>Tiếng Việt</MenuItem>
-                </Select>
-              </FormControl>
-              <FormControl variant='outlined' style={{width: 200, marginLeft: 24}}>
-                {/* <InputLabel id="demo-simple-select-label">Select an example to try</InputLabel> */}
-                <Select
-                  style={{height: 40}}
-                >
-                  <MenuItem value="">
-                    <em>Select an example to try</em>
-                  </MenuItem>
-                  <MenuItem value={10}>DVD Calibration settings lost after reset?</MenuItem>
-                  <MenuItem value={20}>How can I take multiple pictures in one frame on Sony a7iii?</MenuItem>
-                  <MenuItem value={30}>I bought 4K Android TV yesterday. When can I get this?</MenuItem>
-                </Select>
-              </FormControl>
-            </div>
-            <TextField
-              placeholder='Select example to start'
-              variant='outlined'
-              style={{width: '100%'}}
-              multiline={true}
-              rows={5}
-            />
-            <div style={{textAlign: 'right', marginBottom: 30}}>
-              <Button
-                variant='contained'
-                color='secondary'
-                style={{margin: '10px 0'}}
-              >
-                submit
-              </Button>
-            </div>
-            
-            <h2 style={{margin: '0 0 16px 0'}}>Result</h2>
-            <TextField
-              placeholder='Input text above or try analyzer with our example'
-              variant='outlined'
-              style={{width: '100%'}}
-              multiline={true}
-              rows={5}
-              disabled
-            />
-          </div>
-        </div>
-      </div>
-
-      <main>
-      </main>
+      </DemoPage>
 
       <style jsx>{`
         .container {
