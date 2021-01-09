@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from "next/head";
 import DemoNavigator from "../demo_navigator";
+import Footer from '../../components/footer';
 
 
 const DemoPage = ({active, children}) => {
@@ -13,6 +14,7 @@ const DemoPage = ({active, children}) => {
         <main>
             {children}
         </main>
+        <Footer />
     </div>)
 }
 

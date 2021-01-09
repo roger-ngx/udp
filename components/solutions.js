@@ -62,7 +62,7 @@ const Solutions = () => {
                     img='/img/services/classification_icon.png'
                     title='Content Classification'
                     content='Classify free-text documents by predefined categories to help organize content.'
-                    link='products/content_classification.js'
+                    link='products/content_classification'
                 />
             </div>
 
