@@ -3,13 +3,13 @@ import Head from "next/head";
 import DemoNavigator from "../demo_navigator";
 
 
-const DemoPage = ({children}) => {
+const DemoPage = ({active, children}) => {
     return (<div>
         <Head>
             <title>UDP Sol</title>
             <link rel="icon" href="/favicon.ico" />
         </Head>
-        <DemoNavigator />
+        <DemoNavigator active={active}/>
         <main>
             {children}
         </main>

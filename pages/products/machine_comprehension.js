@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -48,11 +47,7 @@ export default function Annotation() {
 
   return (
     <div className="container">
-      <DemoPage>
-        <Head>
-          <title>UDP Sol</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
+      <DemoPage active='machine'>
         <div style={{position: 'relative'}}>
           <div
             style={{

@@ -48,7 +48,7 @@ export default function Entity() {
 
   return (
     <div className="container">
-      <DemoPage>
+      <DemoPage active='content'>
         <div style={{position: 'relative'}}>
           <div
             style={{
@@ -57,9 +57,9 @@ export default function Entity() {
               padding: '55px 0',
               width: '100%',
               position: 'fixed',
-              top: 0, left: 0,
+              top: 64, left: 0,
               zIndex: -1,
-              height: 400
+              height: 500
             }}
           >
             <div className='grid' style={{transform: `translateY(${translateY}px)`}}>
@@ -73,7 +73,7 @@ export default function Entity() {
             </div>
           </div>
 
-          <div id='content' style={{marginTop: 400, backgroundColor: 'white', padding: '55px 0'}}>
+          <div id='content' style={{marginTop: 440, backgroundColor: 'white', padding: '55px 0'}}>
             <div className='grid'>
               <div style={{flex: 1, marginRight: 20}}>
                   <h1>NER</h1>
@@ -103,19 +103,6 @@ export default function Entity() {
                     <MenuItem value='en'>English</MenuItem>
                     <MenuItem value='ko'>한국어</MenuItem>
                     <MenuItem value='vi'>Tiếng Việt</MenuItem>
-                  </Select>
-                </FormControl>
-                <FormControl variant='outlined' style={{width: 200, marginLeft: 24}}>
-                  {/* <InputLabel id="demo-simple-select-label">Select an example to try</InputLabel> */}
-                  <Select
-                    style={{height: 40}}
-                  >
-                    <MenuItem value="">
-                      <em>Select an example to try</em>
-                    </MenuItem>
-                    <MenuItem value={10}>DVD Calibration settings lost after reset?</MenuItem>
-                    <MenuItem value={20}>How can I take multiple pictures in one frame on Sony a7iii?</MenuItem>
-                    <MenuItem value={30}>I bought 4K Android TV yesterday. When can I get this?</MenuItem>
                   </Select>
                 </FormControl>
               </div>

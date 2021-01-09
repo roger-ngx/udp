@@ -1,36 +1,50 @@
+import Link from 'next/link';
+import Head from 'next/head';
+
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import { Link } from '@material-ui/core';
 
-const DemoNavigator = () => {
+const DemoNavigator = ({active}) => {
 
     return(
-        <AppBar style={{backgroundColor: '#1976d2'}}>
-            <Toolbar>
-                <Link href='/'>
-                    <img src='/logo.png' style={{width: 50, height: 50}}/>
-                </Link>
-                <Link style={{marginLeft: 'auto', color: 'white'}} href='/products/machine_comprehension'>
-                    <Typography style={{marginLeft: 'auto'}}>
-                        Machine Comprehension
-                    </Typography>
-                </Link>
-                <Link style={{marginLeft: 48, color: 'white'}} href='/products/content_classification'>
-                    <Typography style={{marginLeft: 'auto'}}>
-                        Content Classification
-                    </Typography>
-                </Link>
-                <Link style={{marginLeft: 48, color: 'white'}} href='/products/information_extraction'>
-                    <Typography style={{marginLeft: 'auto'}}>
-                        Information Extraction
-                    </Typography>
-                </Link>
-            </Toolbar>
-        </AppBar>
+        <>
+            <Head>
+            <title>UDP Solution</title>
+            <link rel="icon" href="/logo.png" />
+            </Head>
+            <AppBar style={{backgroundColor: 'white'}}>
+                <Toolbar>
+                    <Link href='/'>
+                        <img src='/logo.png' style={{width: 50, height: 50, cursor: 'pointer'}}/>
+                    </Link>
+                    <Link href='/products/machine_comprehension'>
+                        <Typography style={{marginLeft: 'auto', color: '#1976d2', fontWeight: active==='machine' ? 'bold' : 'normal', cursor: 'pointer'}}>
+                            Machine Comprehension
+                        </Typography>
+                    </Link>
+                    <Link href='/products/content_classification'>
+                        <Typography style={{marginLeft: 48, color: '#1976d2', fontWeight: active==='content' ? 'bold' : 'normal', cursor: 'pointer'}}>
+                            Content Classification
+                        </Typography>
+                    </Link>
+                    <Link href='/products/information_extraction'>
+                        <Typography style={{marginLeft: 48, color: '#1976d2', fontWeight: active==='information' ? 'bold' : 'normal', cursor: 'pointer'}}>
+                            Information Extraction
+                        </Typography>
+                    </Link>
+                </Toolbar>
+            </AppBar>
+            <style jsx>
+            {
+                `
+                `
+            }
+            </style>
+        </>
     )
 }
 
