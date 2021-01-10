@@ -55,8 +55,8 @@ export default function MachineComprehension({models}) {
           >
             <div className='grid'>
                 <div style={{flex: 1, marginRight: 20}}>
-                    <h1>Natural Language Understanding API - NER</h1>
-                    <p>NER API extracts meaningful keywords for any text descriptions. It’s being used for automatic tagging of keywords and the better AD targeting.</p>
+                    <h1>UDP Comprehensive Chatbot</h1>
+                    <p>A messenger marketing solution</p>
                 </div>
                 <div style={{flex: 1}}>
                   <img src='/img/annotation/NER.gif' style={{width: '100%'}}/>
@@ -64,23 +64,14 @@ export default function MachineComprehension({models}) {
             </div>
           </div>
 
-          <div id='content' style={{marginTop: 440, backgroundColor: 'white', padding: '55px 0'}}>
-            <div className='grid'>
-              <div style={{flex: 1, marginRight: 20}}>
-                  <h1>NER</h1>
-                  <p>A travel company uses UDP's NER API to automatically identified named entities specific to their company’s needs and resulted in 70% increase in structured and consumable named entities.</p>
-              </div>
-              <div style={{flex: 1}}>
-                <img src='/img/annotation/NER-CS.png' style={{width: '100%'}}/>
-              </div>
-            </div>
-
-            <div style={{padding: '0 20%', marginTop: 55}}>
+          <div id='content' style={{marginTop: 500, backgroundColor: 'white', padding: '55px 0'}}>
+          <div style={{padding: '0 20%', marginTop: 55}}>
                 <h1>How it works</h1>
-                <p>NER Analyzer uses machine learning to reveal the structure and meaning of the text. You can extract information about people, places, and events, and better understand social media sentiment and customer conversations.</p>
-            </div>
+                <p>UDP Chatbot aims to serve various domains separately. This means that UDP Chatbot can comprehend a domain knowledge through input text regarding the domain. If you need to deploy UDP Chatbot for your particular business, we just input its information regarding your products, services, or any content that Chatbot is desired to comprehend and answer your customers.</p>
+                <p>To demonstrate the ability to comprehend an input knowledge, we built a Machine Reading Comprehension system as web application where we can input knowledge (so-called context) in the form of sentences in text format. And we can also input questions related to the input context. The system will answer our question based on the input context.</p>
+          </div>
 
-            <div style={{padding: '0 20%', marginTop: 55}}>
+             <div style={{padding: '0 20%', marginTop: 55}}>
               <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 20}}>
                 <h2 style={{margin: 0}}>Input text</h2>
                 <FormControl variant='outlined' style={{width: 200, marginLeft: 24}}>
@@ -130,7 +121,30 @@ export default function MachineComprehension({models}) {
                 rows={5}
                 disabled
               />
+            </div>  
+
+            <div className='grid'>
+              <div style={{flex: 1, marginRight: 20}}>
+                  <h1>Features</h1>
+                  <p></p>
+              </div>
+              <div style={{flex: 1}}>
+                <img src='/img/annotation/Chatbot_features.PNG' style={{width: '100%'}}/>
+              </div>
             </div>
+
+            <div className='grid'>
+              <div style={{flex: 1, marginRight: 20}}>
+                  <h1>Architecture</h1>
+                  <p></p>
+              </div>
+              <div style={{flex: 1}}>
+                <img src='/img/annotation/Chatbot_Architecture.PNG' style={{width: '100%'}}/>
+              </div>
+            </div>
+           
+
+           
           </div>
         </div>
       </DemoPage>
@@ -145,7 +159,7 @@ export default function MachineComprehension({models}) {
         }
 
         #content p {
-            line-height: 2.8
+            line-height: 2.0
         }
 
         h1 {
