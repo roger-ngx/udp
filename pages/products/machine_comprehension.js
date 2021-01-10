@@ -1,26 +1,17 @@
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-
-import AppNavigator from '../../components/navigator';
-import Intro from '../../components/intro';
-import CoreTechnology from '../../components/core_technology';
-import AboutUs from '../../components/about_us';
-import Solutions from '../../components/solutions';
-import Team from '../../components/team';
-import SectionHeader from '../../components/section_header';
-import Footer from '../../components/footer';
+import { Buffer } from 'buffer';
 import { useState, useRef, useEffect } from 'react';
 import { TextField, Button } from '@material-ui/core';
 import { throttle } from 'lodash';
+
 import DemoPage from '../../components/common/DemoPage';
 
 let lastScrollTop = 0;
 let savedTranslate = 0;
 
-export default function Annotation() {
+export default function MachineComprehension({models}) {
 
   const [ translateY, setTranslateY ] = useState(0);
 
@@ -73,7 +64,7 @@ export default function Annotation() {
             </div>
           </div>
 
-          <div id='content' style={{marginTop: 500, backgroundColor: 'white', padding: '55px 0'}}>
+          <div id='content' style={{marginTop: 440, backgroundColor: 'white', padding: '55px 0'}}>
             <div className='grid'>
               <div style={{flex: 1, marginRight: 20}}>
                   <h1>NER</h1>
@@ -295,3 +286,18 @@ export default function Annotation() {
     </div>
   )
 }
+
+// export async function getStaticProps() {
+//   const res = await fetch('', {
+//     headers: {
+//       'Authorization' : `Basic ${Buffer.from('twin:twin', 'utf-8').toString()}`
+//     }
+//   });
+//   const data = await res.json();
+
+//   return {
+//     props: {
+//       models: data
+//     }
+//   }
+// }
