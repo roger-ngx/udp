@@ -48,7 +48,7 @@ const Team = () => {
                     img='/img/team/tu.jpg'
                     name='Tony Quach'
                     role='COO'
-                    detail='As Chief Operations Officer, Tony is responsible for all company administration and operations along with strategic efforts that support UDP Solution’s projects and goals. Prior to joining UDP Solution, Tony has been successful in his own business of AI and Blockchain system developments. He was also presentative of several Vietnamese outsourcing enterprises in S. Korea. He has more than 16 years of experience in Software Development, AI systems, and Blockchain. Tony holds a Master degree in Advanced Fusion Technology from Konkuk University, S. Korea.'
+                    detail='As Chief Operations Officer, Tony is responsible for all company administration and operations along with strategic efforts that support UDP Solution’s projects and goals. Prior to joining UDP Solution, Tony has been successful in his own business of AI and Blockchain system developments. He was also representative of several Vietnamese outsourcing enterprises in S. Korea. He has more than 16 years of experience in Software Development, AI systems, and Blockchain. Tony holds a Master degree in Advanced Fusion Technology from Konkuk University, S. Korea.'
                 />
                 {/* <Person
                     img='/img/team/dung.jpg'
