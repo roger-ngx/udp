@@ -134,14 +134,23 @@ export default function Annotation() {
 
             <div className='grid'>
               <div style={{flex: 1, marginRight: 20}}>
-                  <h1>NER</h1>
-                  <p>A travel company uses UDP's NER API to automatically identified named entities specific to their company’s needs and resulted in 70% increase in structured and consumable named entities.</p>
+                  <h1>Features</h1>
+                  <p></p>
               </div>
               <div style={{flex: 1}}>
-                <img src='/img/annotation/NER-CS.png' style={{width: '100%'}}/>
+                <img src='/img/annotation/Chatbot_features.PNG' style={{width: '100%'}}/>
               </div>
             </div>
 
+            <div className='grid'>
+              <div style={{flex: 1, marginRight: 20}}>
+                  <h1>Architecture</h1>
+                  <p></p>
+              </div>
+              <div style={{flex: 1}}>
+                <img src='/img/annotation/Chatbot_Architecture.PNG' style={{width: '100%'}}/>
+              </div>
+            </div>
            
 
            
