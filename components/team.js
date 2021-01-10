@@ -42,7 +42,7 @@ const Team = () => {
                     img='/img/team/phuoc.jpg'
                     name='Quang-Phuoc Nguyen'
                     role='CEO'
-                    detail='Quang-Phuoc founded UDP Solution in 2019 and has served as Chief Executive Officer on the board of directors. He has more than 18 years of experience in Artificial Intelligence, especially Bioinformatics and Natural Language Processing. His successes included word-sense disambiguated Neural Machine Translation, Customer Review Analysis system for Online Shopping, Voice-of-Customer systems for Banks and Insurances, Recommendation module for E-learning system, and NLP for Digital Phenotyping systems. Quang-Phuoc holds a Ph.D. degree in computer science from the University of Ulsan, S. Korea.'
+                    detail='Quang-Phuoc founded UDP Solution in 2019 and has served as Chief Executive Officer on the board of directors. He has more than 18 years of experience in Artificial Intelligence, especially Bioinformatics and Natural Language Processing. His successes included development of Word-sense Disambiguated Neural Machine Translation, Customer Review Analysis system for Online Shopping, Voice-of-Customer systems for Banks and Insurances, Recommendation module for E-learning system, and applied-NLP for Digital Phenotyping systems. Quang-Phuoc holds a Ph.D. degree in Computer Science from the University of Ulsan, S. Korea.'
                 />
                 <Person
                     img='/img/team/tu.jpg'
