@@ -64,7 +64,7 @@ export default function MachineComprehension({models}) {
             </div>
           </div>
 
-          <div id='content' style={{marginTop: 500, backgroundColor: 'white', padding: '55px 0'}}>
+          <div id='content' style={{marginTop: 440, backgroundColor: 'white', padding: '55px 0'}}>
           <div style={{padding: '0 20%', marginTop: 55}}>
                 <h1>How it works</h1>
                 <p>UDP Chatbot aims to serve various domains separately. This means that UDP Chatbot can comprehend a domain knowledge through input text regarding the domain. If you need to deploy UDP Chatbot for your particular business, we just input its information regarding your products, services, or any content that Chatbot is desired to comprehend and answer your customers.</p>
@@ -123,7 +123,7 @@ export default function MachineComprehension({models}) {
               />
             </div>  
 
-            <div className='grid'>
+            <div className='grid-column'>
               <div style={{flex: 1, marginRight: 20}}>
                   <h1>Features</h1>
                   <p></p>
@@ -133,7 +133,7 @@ export default function MachineComprehension({models}) {
               </div>
             </div>
 
-            <div className='grid'>
+            <div className='grid-column'>
               <div style={{flex: 1, marginRight: 20}}>
                   <h1>Architecture</h1>
                   <p></p>
@@ -142,9 +142,6 @@ export default function MachineComprehension({models}) {
                 <img src='/img/annotation/Chatbot_Architecture.PNG' style={{width: '100%'}}/>
               </div>
             </div>
-           
-
-           
           </div>
         </div>
       </DemoPage>
@@ -284,6 +281,13 @@ export default function MachineComprehension({models}) {
           display: flex;
           flex-direction: row;
           padding: 0 20%;
+        }
+
+        .grid-column {
+          display: flex;
+          flex-direction: column;
+          padding: 0 20%;
+          margin-top: 55px
         }
 
         @media (max-width: 600px) {
