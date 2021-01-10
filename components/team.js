@@ -48,7 +48,7 @@ const Team = () => {
                     img='/img/team/tu.jpg'
                     name='Tony Quach'
                     role='COO'
-                    detail='Quang-Phuoc founded UDP Solution in 2019 and has served as Chief Executive Officer on the board of directors. He has more than 18 years of experience in Artificial Intelligence, especially Bioinformatics and Natural Language Processing. His successes included word-sense disambiguate Neural Machine Translation, Customer Review Analysis system for Online Shopping, Voice-of-Customer systems for Banks and Insurances, Recommendation module for E-learning system, and NLP for Digital Phenotyping systems. Quang-Phuoc holds a Ph.D. degree in computer science from the University of Ulsan, S. Korea.'
+                    detail='As Chief Operations Officer, Tony is responsible for all company administration and operations along with strategic efforts that support UDP Solution’s projects and goals. Prior to joining UDP Solution, Tony has been successful in his own business of AI and Blockchain system developments. He was also presentative of several Vietnamese outsourcing enterprises in S. Korea. He has more than 16 years of experience in Software Development, AI systems, and Blockchain. Tony holds a Master degree in Advanced Fusion Technology from Konkuk University, S. Korea.'
                 />
                 {/* <Person
                     img='/img/team/dung.jpg'
