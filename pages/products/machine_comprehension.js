@@ -62,14 +62,12 @@ export default function MachineComprehension({models}) {
         Context: originalData,
         question
       };
-  
-      const res = await fetch(`https://183.96.253.147:6061/api/v1/mrc/response_long_text?bertId=FinBERT_v2&Context=${originalData}&question=${question}`, {
+
+      const res = await fetch(`/api/machine_comprehension?data=${originalData}&question=${question}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
-        },
-        mode: 'cors',
-        // data: JSON.stringify(data)
+        }
       });
 
       const resData = await res.json();
