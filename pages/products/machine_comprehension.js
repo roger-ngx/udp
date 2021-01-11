@@ -5,6 +5,8 @@ import { Buffer } from 'buffer';
 import { useState, useRef, useEffect } from 'react';
 import { TextField, Button, CircularProgress } from '@material-ui/core';
 import { throttle, map, orderBy, reduce } from 'lodash';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import { makeStyles } from '@material-ui/core/styles';
 
 import DemoPage from '../../components/common/DemoPage';
 
@@ -19,15 +21,29 @@ const sampleTexts = [
 ];
 
 const sampleQuestions = [
-  '폭발은 언제 발생 했어요?', 
-  '어디에서 캐시비 충전할 수 있어?'
+  [
+    '폭발은 언제 발생 했어요?',
+    '푹발은 어디에서 일어 났습니까?',
+    '다친 노동자는 몇 명입니까?'
+  ],
+  ['어디에서 캐시비 충전할 수 있어?']
 ];
+
+const useStyles = makeStyles(theme => ({
+  disabledInput: {
+    color: theme.palette.text.primary,
+  },
+}));
 
 export default function MachineComprehension({models}) {
 
+  const classes = useStyles();
+
   const [ translateY, setTranslateY ] = useState(0);
   const [ originalData, setOriginalData ] = useState('');
+  const [ questions, setQuestions ] = useState([]);
   const [ question, setQuestion ] = useState();
+
   const [ result, setResult ] = useState('');
   const [ processing, setProcessing ] = useState(false);
 
@@ -142,7 +158,8 @@ export default function MachineComprehension({models}) {
                   color='primary'
                   onClick={() => {
                     setOriginalData(sampleTexts[0]);
-                    setQuestion(sampleQuestions[0]);
+                    setQuestions(sampleQuestions[0]);
+                    setQuestion();
                   }}
                 >
                   Example 1
@@ -152,14 +169,15 @@ export default function MachineComprehension({models}) {
                   color='primary'
                   onClick={() => {
                     setOriginalData(sampleTexts[1]);
-                    setQuestion(sampleQuestions[1]);
+                    setQuestions(sampleQuestions[1]);
+                    setQuestion();
                   }}
                 >
                   Example 2
                 </Button>
               </div>
               <TextField
-                placeholder='Select example to start'
+                placeholder='Add a sample text'
                 variant='outlined'
                 style={{width: '100%'}}
                 multiline={true}
@@ -168,20 +186,42 @@ export default function MachineComprehension({models}) {
                 onChange={e => setOriginalData(e.target.value)}
               />
 
-              <TextField
+              {/* <TextField
                 placeholder='Type a question'
                 variant='outlined'
                 style={{width: '100%', marginTop: 12}}
                 value={question}
                 onChange={e => setQuestion(e.target.value)}
+              /> */}
+
+              <Autocomplete
+                key={originalData}
+                options={questions}
+                value={question}
+                onChange={(e, value) => setQuestion(value)}
+
+                inputValue={question}
+                onInputChange={(event, newInputValue) => {
+                  setQuestion(newInputValue);
+                }}
+        
+                style={{ width: 300 }}
+
+                renderInput={(params) => <TextField
+                  {...params}
+                  placeholder='Select a question'
+                  variant='outlined'
+                  style={{width: '100%', marginTop: 12}}
+                />}
               />
 
               <div style={{textAlign: 'right', marginBottom: 30}}>
                 <Button
                   variant='contained'
                   color='secondary'
-                  style={{margin: '10px 0'}}
+                  style={{margin: '10px 0', minWidth: 90}}
                   onClick={requestForAnswer}
+                  disabled={processing}
                 >
                   {
                     processing ?
@@ -201,6 +241,7 @@ export default function MachineComprehension({models}) {
                 rows={10}
                 disabled
                 value={result}
+                InputProps={{ classes: { disabled: classes.disabledInput } }}
               />
             </div>  
 
