@@ -9,6 +9,7 @@ const DemoPage = ({active, children}) => {
         <Head>
             <title>UDP Sol</title>
             <link rel="icon" href="/favicon.ico" />
+            <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
         </Head>
         <DemoNavigator active={active}/>
         <main>
