@@ -116,7 +116,6 @@ export default function Home() {
       <Head>
         <title>UDP</title>
         <link rel="icon" href="/logo.png" />
-        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
       </Head>
 
       <AppNavigator selected={visibleSection} onScrollTo={scrollToSection}/>
