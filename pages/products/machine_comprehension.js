@@ -137,44 +137,49 @@ export default function MachineComprehension({models}) {
           </div>
 
              <div style={{padding: '0 20%', marginTop: 55}}>
-              <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 20}}>
-                <h2 style={{margin: 0}}>Input text</h2>
-                <FormControl variant='outlined' style={{width: 200, marginLeft: 24}}>
-                  {/* <InputLabel id="demo-simple-select-label">English</InputLabel> */}
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value='ko'
-                    style={{height: 40}}
+              <div className='column' style={{marginBottom: 24}}>
+                <div style={{display: 'flex', flexDirection: 'row', flex: 1, alignItems: 'center'}}>
+                  <h2 style={{margin: 0}}>Input text</h2>
+                  <FormControl variant='outlined' style={{width: 200, marginLeft: 24}}>
+                    {/* <InputLabel id="demo-simple-select-label">English</InputLabel> */}
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value='ko'
+                      style={{height: 40}}
+                    >
+                      {/* <MenuItem value='en'>English</MenuItem> */}
+                      <MenuItem value='ko'>한국어</MenuItem>
+                      {/* <MenuItem value='vi'>Tiếng Việt</MenuItem> */}
+                    </Select>
+                  </FormControl>
+                </div>
+
+                <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                  <Button
+                    style={{marginLeft: 'auto', marginRight: 20}}
+                    variant='contained'
+                    color='primary'
+                    onClick={() => {
+                      setOriginalData(sampleTexts[0]);
+                      setQuestions(sampleQuestions[0]);
+                      setQuestion();
+                    }}
                   >
-                    {/* <MenuItem value='en'>English</MenuItem> */}
-                    <MenuItem value='ko'>한국어</MenuItem>
-                    {/* <MenuItem value='vi'>Tiếng Việt</MenuItem> */}
-                  </Select>
-                </FormControl>
-                <Button
-                  style={{marginLeft: 'auto', marginRight: 20}}
-                  variant='contained'
-                  color='primary'
-                  onClick={() => {
-                    setOriginalData(sampleTexts[0]);
-                    setQuestions(sampleQuestions[0]);
-                    setQuestion();
-                  }}
-                >
-                  Example 1
-                </Button>
-                <Button
-                  variant='contained'
-                  color='primary'
-                  onClick={() => {
-                    setOriginalData(sampleTexts[1]);
-                    setQuestions(sampleQuestions[1]);
-                    setQuestion();
-                  }}
-                >
-                  Example 2
-                </Button>
+                    Example 1
+                  </Button>
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    onClick={() => {
+                      setOriginalData(sampleTexts[1]);
+                      setQuestions(sampleQuestions[1]);
+                      setQuestion();
+                    }}
+                  >
+                    Example 2
+                  </Button>
+                </div>
               </div>
               <TextField
                 placeholder='Add a sample text'
@@ -246,22 +251,22 @@ export default function MachineComprehension({models}) {
             </div>  
 
             <div className='grid-column'>
-              <div style={{flex: 1, marginRight: 20}}>
+              <div>
                   <h1>Features</h1>
                   <p></p>
               </div>
-              <div style={{flex: 1}}>
-                <img src='/img/annotation/Chatbot_features.PNG' style={{width: '100%'}}/>
+              <div style={{flex: 1, textAlign: 'center'}}>
+                <img src='/img/annotation/Chatbot_features.PNG' style={{width: '80%'}}/>
               </div>
             </div>
 
             <div className='grid-column'>
-              <div style={{flex: 1, marginRight: 20}}>
+              <div>
                   <h1>Architecture</h1>
                   <p></p>
               </div>
-              <div style={{flex: 1}}>
-                <img src='/img/annotation/Chatbot_Architecture.PNG' style={{width: '100%'}}/>
+              <div style={{flex: 1, textAlign: 'center'}}>
+                <img src='/img/annotation/Chatbot_Architecture.PNG' style={{width: '80%'}}/>
               </div>
             </div>
           </div>
@@ -399,6 +404,11 @@ export default function MachineComprehension({models}) {
           font-weight: 400;
         }
 
+        .column {
+          display: flex;
+          flex-direction: row;
+        }
+
         .grid {
           display: flex;
           flex-direction: row;
@@ -415,6 +425,11 @@ export default function MachineComprehension({models}) {
         @media (max-width: 600px) {
           .grid {
             width: 100%;
+            flex-direction: column;
+          }
+
+          .column {
+            display: flex;
             flex-direction: column;
           }
         }
