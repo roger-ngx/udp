@@ -14,7 +14,7 @@ import Team from '../../components/team';
 import SectionHeader from '../../components/section_header';
 import Footer from '../../components/footer';
 import { useState, useRef, useEffect } from 'react';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button, CircularProgress } from '@material-ui/core';
 import { throttle } from 'lodash';
 
 import DemoPage from '../../components/common/DemoPage';
@@ -25,6 +25,9 @@ let savedTranslate = 0;
 export default function Classification() {
 
   const [ translateY, setTranslateY ] = useState(0);
+  const [ inputText, setInputText ] = useState();
+  const [ processing, setProcessing ] = useState(false);
+  const [ result, setResult ] = useState();
 
   useEffect(() => {
     const handler = throttle(handleScroll, 10, { trailing: false});
@@ -45,6 +48,36 @@ export default function Classification() {
     setTranslateY(savedTranslate);
 
     lastScrollTop = st <= 0 ? 0 : st;
+  };
+
+  const requestForAnswer = async () => {
+    setProcessing(true);
+    setResult('');
+
+    try{
+      const res = await fetch(`/api/information_extraction`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data: JSON.stringify({text: inputText})
+      });
+
+      const resData = await res.json();
+
+      console.log(resData);
+
+      // const sortedData = map(orderBy(resData, ['probability'], ['desc']), data => `${data.text} (${(data.probability * 100).toFixed(2)}%)`);
+
+      // setResult(reduce(sortedData, (result, data) => {
+      //   result += data + '\n\n';
+      //   return result; 
+      // }, ''));
+    }catch(ex){
+      console.log(ex);
+    }
+
+    setProcessing(false);
   };
 
   return (
@@ -94,33 +127,39 @@ export default function Classification() {
               <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 20}}>
                 <h2 style={{margin: 0}}>Input text</h2>
                 <FormControl variant='outlined' style={{width: 200, marginLeft: 24}}>
-                  {/* <InputLabel id="demo-simple-select-label">English</InputLabel> */}
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value='en'
+                    value='ko'
                     style={{height: 40}}
                   >
-                    <MenuItem value='en'>English</MenuItem>
                     <MenuItem value='ko'>한국어</MenuItem>
-                    <MenuItem value='vi'>Tiếng Việt</MenuItem>
                   </Select>
                 </FormControl>
               </div>
               <TextField
-                placeholder='Select example to start'
+                placeholder='Input text to start'
                 variant='outlined'
                 style={{width: '100%'}}
                 multiline={true}
                 rows={5}
+                value={inputText}
+                onChange={e => setInputText(e.target.value)}
               />
               <div style={{textAlign: 'right', marginBottom: 30}}>
                 <Button
                   variant='contained'
                   color='secondary'
                   style={{margin: '10px 0'}}
+                  onClick={requestForAnswer}
+                  disabled={processing}
                 >
-                  submit
+                  {
+                    processing ?
+                    <CircularProgress size={16} />
+                    :
+                    'submit'
+                  }
                 </Button>
               </div>
               
@@ -132,6 +171,7 @@ export default function Classification() {
                 multiline={true}
                 rows={5}
                 disabled
+                value={result}
               />
             </div>
           </div>

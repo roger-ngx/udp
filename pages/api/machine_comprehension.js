@@ -1,22 +1,33 @@
 const https = require("https");
 
 export default async (req, res) => {
-    const {data, question} = req.query;
-    console.log(req.query);
+  try{
+    const {context, question} = req.body;
 
-    const response = await fetch(encodeURI(`https://183.96.253.147:6061/api/v1/mrc/response_long_text?bertId=FinBERT_v2&Context=${data}&question=${question}`), {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        agent: new https.Agent({
-          rejectUnauthorized: false
-        }),
-        mode: 'cors',
-        // data: JSON.stringify(data)
-      });
+    const body = {
+      model: "FinBERT_v2",
+      question,
+      context
+    };
 
-      const resData = await response.json();
+    const response = await fetch('https://183.96.253.147:6061/api/v2/mrc/response_long_text',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      agent: new https.Agent({
+        rejectUnauthorized: false
+      }),
+      mode: 'cors',
+      body: JSON.stringify(body)
+    });
 
-      res.end(JSON.stringify(resData));
+    const resData = await response.json();
+    console.log(resData);
+
+    res.end(JSON.stringify(resData));
+  }catch(ex){
+    console.log(ex);
+  }
 };

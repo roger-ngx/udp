@@ -74,16 +74,16 @@ export default function MachineComprehension({models}) {
 
     try{
       const data = {
-        bertId: 'FinBERT_v2',
-        Context: originalData,
+        context: originalData,
         question
       };
 
-      const res = await fetch(`/api/machine_comprehension?data=${originalData}&question=${question}`, {
-        method: 'GET',
+      const res = await fetch(`/api/machine_comprehension`, {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify(data)
       });
 
       const resData = await res.json();
