@@ -15,7 +15,9 @@ import SectionHeader from '../../components/section_header';
 import Footer from '../../components/footer';
 import { useState, useRef, useEffect } from 'react';
 import { TextField, Button, CircularProgress } from '@material-ui/core';
-import { throttle } from 'lodash';
+import { map, throttle, find } from 'lodash';
+
+import { NER } from '../../lib/utils';
 
 import DemoPage from '../../components/common/DemoPage';
 
@@ -60,19 +62,13 @@ export default function Classification() {
         headers: {
           'Content-Type': 'application/json'
         },
-        data: JSON.stringify({text: inputText})
+        mode: 'cors',
+        body: JSON.stringify({text: inputText})
       });
 
       const resData = await res.json();
 
-      console.log(resData);
-
-      // const sortedData = map(orderBy(resData, ['probability'], ['desc']), data => `${data.text} (${(data.probability * 100).toFixed(2)}%)`);
-
-      // setResult(reduce(sortedData, (result, data) => {
-      //   result += data + '\n\n';
-      //   return result; 
-      // }, ''));
+      setResult(resData);
     }catch(ex){
       console.log(ex);
     }
@@ -164,15 +160,35 @@ export default function Classification() {
               </div>
               
               <h2 style={{margin: '0 0 16px 0'}}>Result</h2>
-              <TextField
-                placeholder='Input text above or try analyzer with our example'
-                variant='outlined'
-                style={{width: '100%'}}
-                multiline={true}
-                rows={5}
-                disabled
-                value={result}
-              />
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  minHeight: 60,
+                  border: 'solid 1px #999',
+                  borderRadius: 2,
+                  padding: 16
+                }}
+              >
+                {
+                  result ?
+                  map(result.text, (text, index) => {
+                    const ner = result.ner[index];
+                    console.log(ner);
+                    const nerColor = find(NER, item => item.type === ner).color;
+
+                    return <div style={{margin: 8, backgroundColor: nerColor, color: 'white'}}>{text}</div>
+                  })
+                  :
+                  <div>Input text and click a submit button</div>
+                }
+              </div>
+              <div style={{marginTop: 16}}>
+                {
+                  map(NER, ner => <div style={{backgroundColor: ner.color, color: 'white', display: 'inline-block', marginRight: 32}}>{ner.type}</div>)
+                }
+              </div>
             </div>
           </div>
         </div>

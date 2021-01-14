@@ -2,7 +2,8 @@ const https = require("https");
 
 export default async (req, res) => {
     try{
-        const {text} = req.query;
+        const {text} = req.body;
+        console.log(text);
 
         const response = await fetch(encodeURI(`https://183.96.253.147:6061/proxy/aibot/services/ners/twindoc_finbert_v2_ner_v2/inference?text=${text}}`), {
           method: 'GET',
