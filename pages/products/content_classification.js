@@ -14,8 +14,8 @@ import Team from '../../components/team';
 import SectionHeader from '../../components/section_header';
 import Footer from '../../components/footer';
 import { useState, useRef, useEffect } from 'react';
-import { TextField, Button } from '@material-ui/core';
-import { throttle } from 'lodash';
+import { TextField, Button, CircularProgress } from '@material-ui/core';
+import { throttle, keys, values, map, orderBy } from 'lodash';
 import DemoPage from '../../components/common/DemoPage';
 
 let lastScrollTop = 0;
@@ -24,6 +24,9 @@ let savedTranslate = 0;
 export default function Entity() {
 
   const [ translateY, setTranslateY ] = useState(0);
+  const [ inputText, setInputText ] = useState();
+  const [ processing, setProcessing ] = useState(false);
+  const [ result, setResult ] = useState();
 
   useEffect(() => {
     const handler = throttle(handleScroll, 10, { trailing: false});
@@ -44,6 +47,35 @@ export default function Entity() {
     setTranslateY(savedTranslate);
 
     lastScrollTop = st <= 0 ? 0 : st;
+  };
+
+  const requestForAnswer = async () => {
+    setProcessing(true);
+    setResult('');
+
+    try{
+      const res = await fetch(`/api/content_classification`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        mode: 'cors',
+        body: JSON.stringify({text: inputText})
+      });
+
+      const resData = await res.json();
+
+      const types = keys(resData);
+      const probs = values(resData);
+
+      const result = orderBy(map(types, (type, index) => ({type, probability: (probs[index] * 100).toFixed(2)})), ['probability'], ['desc']);
+
+      setResult(map(result, data => `${data.type} : ${data.probability}%\n\n`));
+    }catch(ex){
+      console.log(ex);
+    }
+
+    setProcessing(false);
   };
 
   return (
@@ -97,12 +129,10 @@ export default function Entity() {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value='en'
+                    value='ko'
                     style={{height: 40}}
                   >
-                    <MenuItem value='en'>English</MenuItem>
                     <MenuItem value='ko'>한국어</MenuItem>
-                    <MenuItem value='vi'>Tiếng Việt</MenuItem>
                   </Select>
                 </FormControl>
               </div>
@@ -112,14 +142,23 @@ export default function Entity() {
                 style={{width: '100%'}}
                 multiline={true}
                 rows={5}
+                value={inputText}
+                onChange={e => setInputText(e.target.value)}
               />
               <div style={{textAlign: 'right', marginBottom: 30}}>
                 <Button
                   variant='contained'
                   color='secondary'
                   style={{margin: '10px 0'}}
+                  onClick={requestForAnswer}
+                  disabled={processing}
                 >
-                  submit
+                  {
+                    processing ?
+                    <CircularProgress size={16} />
+                    :
+                    'submit'
+                  }
                 </Button>
               </div>
               
@@ -129,8 +168,9 @@ export default function Entity() {
                 variant='outlined'
                 style={{width: '100%'}}
                 multiline={true}
-                rows={5}
+                rows={10}
                 disabled
+                value={result}
               />
             </div>
           </div>
