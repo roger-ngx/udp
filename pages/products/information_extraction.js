@@ -15,7 +15,7 @@ import SectionHeader from '../../components/section_header';
 import Footer from '../../components/footer';
 import { useState, useRef, useEffect } from 'react';
 import { TextField, Button, CircularProgress } from '@material-ui/core';
-import { map, throttle, find } from 'lodash';
+import { map, throttle, find, uniq, get } from 'lodash';
 
 import { NER } from '../../lib/utils';
 
@@ -24,12 +24,19 @@ import DemoPage from '../../components/common/DemoPage';
 let lastScrollTop = 0;
 let savedTranslate = 0;
 
+const EXAMPLES = [
+  '오에 겐자부로는 일본 현대문학의 초석을 놓은 것으로 평가받는 작가 나쓰메 소세키(1867~1916)의 대표작 ‘마음’에 담긴 군국주의적 요소, 야스쿠니 신사 참배 행위까지 소설의 삽화로 동원하며 일본 사회의 ‘비정상성’을 문제 삼는다.',
+  '이어 하반기(7~12월)에 실시계획 승인을 거쳐 2017년부터 분양을 시작하고 2019년 말에 준공할 계획이다.',
+  '이에 따라 MRO 사업 규모도 같은 기간 643억 달러에서 960억 달러까지 늘어나고 아시아·태평양 지역에서만도 2025년 336억 달러 규모의 시장이 형성될 것으로 예측되고 있다.'
+];
+
 export default function Classification() {
 
   const [ translateY, setTranslateY ] = useState(0);
   const [ inputText, setInputText ] = useState();
   const [ processing, setProcessing ] = useState(false);
   const [ result, setResult ] = useState();
+  const [ example, setExample ] = useState(-1);
 
   useEffect(() => {
     const handler = throttle(handleScroll, 10, { trailing: false});
@@ -132,6 +139,27 @@ export default function Classification() {
                     <MenuItem value='ko'>한국어</MenuItem>
                   </Select>
                 </FormControl>
+                <FormControl variant='outlined' style={{width: 200, marginLeft: 'auto'}}>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    displayEmpty
+                    value={example}
+                    onChange={e => {
+                      setExample(e.target.value);
+                      setInputText(EXAMPLES[e.target.value]);
+                    }}
+                    style={{height: 40}}
+                    inputProps={{ 'aria-label': 'Without label' }}
+                  >
+                    <MenuItem value={-1} disabled>
+                      Select example
+                    </MenuItem>
+                    <MenuItem value={0}>Example 1</MenuItem>
+                    <MenuItem value={1}>Example 2</MenuItem>
+                    <MenuItem value={2}>Example 3</MenuItem>
+                  </Select>
+                </FormControl>
               </div>
               <TextField
                 placeholder='Input text to start'
@@ -168,17 +196,17 @@ export default function Classification() {
                   minHeight: 60,
                   border: 'solid 1px #999',
                   borderRadius: 2,
-                  padding: 16
+                  padding: 16,
+                  backgroundColor: '#ccc'
                 }}
               >
                 {
                   result ?
                   map(result.text, (text, index) => {
                     const ner = result.ner[index];
-                    console.log(ner);
-                    const nerColor = find(NER, item => item.type === ner).color;
+                    const nerColor = get(find(NER, item => item.type === ner), 'color', 'red');
 
-                    return <div style={{margin: 8, backgroundColor: nerColor, color: 'white'}}>{text}</div>
+                    return <div style={{margin: 8, backgroundColor: nerColor, color: 'white', fontWeight: 'bold'}}>{text}</div>
                   })
                   :
                   <div>Input text and click a submit button</div>
@@ -186,7 +214,20 @@ export default function Classification() {
               </div>
               <div style={{marginTop: 16}}>
                 {
-                  map(NER, ner => <div style={{backgroundColor: ner.color, color: 'white', display: 'inline-block', marginRight: 32}}>{ner.type}</div>)
+                  result && map(uniq(result.ner), ner => {
+                    const item = find(NER, n => n.type === ner);
+                    return item && <div 
+                      style={{
+                        backgroundColor: item.color,
+                        fontWeight: 'bold',
+                        color: 'white',
+                        display: 'inline-block',
+                        marginRight: 32
+                      }}
+                    >
+                      {item.type}
+                    </div>
+                  })
                 }
               </div>
             </div>
