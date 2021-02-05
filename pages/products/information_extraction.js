@@ -1,18 +1,7 @@
-import Head from 'next/head';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-import AppNavigator from '../../components/navigator';
-import Intro from '../../components/intro';
-import CoreTechnology from '../../components/core_technology';
-import AboutUs from '../../components/about_us';
-import Solutions from '../../components/solutions';
-import Team from '../../components/team';
-import SectionHeader from '../../components/section_header';
-import Footer from '../../components/footer';
 import { useState, useRef, useEffect } from 'react';
 import { TextField, Button, CircularProgress } from '@material-ui/core';
 import { map, throttle, find, uniq, get } from 'lodash';
