@@ -55,37 +55,43 @@ const Annotation = () => {
     useEffect(() => {
         setTags(map(split(text, ' '), (txt, index) => ({
             id: index,
-            component: <span key={index} style={{paddingRight: 4, display:'inline-block', lineHeight: 2}} id={index}>{txt}</span>
+            component: <><span key={index} style={{display:'inline-block', lineHeight: 2}} id={index}>{txt}</span>&nbsp;</>
         })))
     }, [text]);
 
+    const doubleClickEventHandler = (e) => {
+        console.log('db click got fired');
+        logSelection(true);
+    }
 
-    function logSelection(event) {
+    function logSelection(isDbClick) {
         const selection = window.getSelection();
         
         const startId = +selection.anchorNode.parentNode.id;
         const endId = +selection.extentNode.parentNode.id;
         console.log(selection.anchorNode.parentNode.parentNode.id);
 
-        console.log(startId, endId);
+        console.log(startId, endId, isDbClick);
 
         if(startId === endId){
-            if(includes(markedIndices, startId)){
-                const itemIndex= findIndex(tags, tag => includes(tag.id, startId));
-                
-                if(itemIndex >= 0){
-                    const item = tags[itemIndex];
-                    const ids = item.id.split('-').map(id => +id);
-
-                    remove(markedIndices, index => includes(ids, index));
-                    console.log('markedIndices', markedIndices)
-                    setMarkedIndicies([...markedIndices]);
-
-                    tags.splice(itemIndex, 1);
-
-                    forEach(item.items, (item, index) => {
-                        tags.splice(itemIndex + index, 0, item);
-                    })
+            if(!isDbClick){
+                if(includes(markedIndices, startId)){
+                    const itemIndex= findIndex(tags, tag => includes(tag.id, startId));
+                    
+                    if(itemIndex >= 0){
+                        const item = tags[itemIndex];
+                        const ids = item.id.split('-').map(id => +id);
+    
+                        remove(markedIndices, index => includes(ids, index));
+                        console.log('markedIndices', markedIndices)
+                        setMarkedIndicies([...markedIndices]);
+    
+                        tags.splice(itemIndex, 1);
+    
+                        forEach(item.items, (item, index) => {
+                            tags.splice(itemIndex + index, 0, item);
+                        })
+                    }
                 }
                 return;
             }
@@ -129,6 +135,7 @@ const Annotation = () => {
                 map(items, item => item.component)
             }
             <span
+                id={startId} //for click to remove
                 style={{
                     color: '#583fcf',
                     fontSize: '0.675em',
@@ -197,7 +204,8 @@ const Annotation = () => {
                     wordWrap: 'break-word',
                     // whiteSpace: 'pre-wrap'
                 }}
-                onMouseUp={logSelection}
+                onMouseUp={() => logSelection(false)}
+                onDoubleClick={() => logSelection(true)}
             >
                 {
                     map(tags, tag => tag.component)
