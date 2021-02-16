@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardContent, Paper, TextField } from '@material-ui/core';
-import { split, map, trim, forEach, findIndex, findLastIndex, range, remove, intersection, includes, join } from 'lodash';
+import { split, map, trim, forEach, findIndex, slice, range, remove, intersection, includes, join } from 'lodash';
 
 const HeaderTag = ({name, index, backgroundColor, color, onClick}) => {
 
@@ -37,7 +37,8 @@ const HeaderTag = ({name, index, backgroundColor, color, onClick}) => {
 
 const Annotation = () => {
 
-    const text = trim('The bloc agreed to buy up to 400 million doses of the AstraZeneca vaccine last year , but last week , AstraZeneca said vaccine supplies would be reduced because of problems in one of its EU factories - leading to the EU announcing it would impose vaccine export controls .');
+    const text = trim("From 53-3 overnight, England's only goal on the fourth day was to survive as long as possible on a pitch offering huge and unpredictable turn as well as occasional spitting bounce . Dan Lawrence tried to be proactive, running at Ashwin's first ball to be nutmegged, with Pant completing a spectacular diving stumping . In contrast, Ben Stokes was almost shot-less, tormented by Ashwin in making eight from 51 balls before he offered a bat-pad catch.");
+    const words = split(text, ' ');
     const spaceIndices = [];
 
     const [ tags, setTags ] = useState([]);
@@ -73,6 +74,35 @@ const Annotation = () => {
 
         console.log(startId, endId, isDbClick);
 
+        if(intersection(range(startId, endId + 1), markedIndices).length > 0){
+            return;
+        }
+
+        const dots = fintDotIndices(slice(words, startId, endId + 1), startId);
+        dots.unshift(startId - 1);
+        dots.push(endId + 1);
+
+        console.log('dots', dots);
+
+        for(let i = 0; i < dots.length-1; i++){
+            processSelection(dots[i] + 1, dots[i+1] - 1, isDbClick);
+        }
+    }
+
+    const fintDotIndices = (words, startId) => {
+        console.log(words);
+        const dots = [];
+
+        forEach(words, (word, index) => {
+            if(word === '.'){
+                dots.push(index + startId);
+            }
+        });
+
+        return dots;
+    }
+
+    const processSelection = (startId, endId, isDbClick) => {
         if(startId === endId){
             if(!isDbClick){
                 if(includes(markedIndices, startId)){
@@ -104,11 +134,6 @@ const Annotation = () => {
         if(startIndex < 0 || endIndex < 0){
             return;
         }
-
-        
-        if(intersection(range(startId, endId + 1), markedIndices).length > 0){
-            return;
-        }
         
         setMarkedIndicies([...markedIndices, ...range(startId, endId + 1)]);
         // console.log(range(startIndex, endIndex + 1), markedIndices);
@@ -118,7 +143,7 @@ const Annotation = () => {
         const newItem ={
             id: join(range(startId, endId + 1), '-'),
             items,
-            component: <mark
+            component: <><mark
                 style={{
                     backgroundColor: '#ffe184',
                     position: 'relative',
@@ -126,48 +151,58 @@ const Annotation = () => {
                     padding: '0.25em 0.4em',
                     fontWeight: 'bold',
                     color: '#444',
-                    marginRight: 4,
                     flexWrap: 'wrap'
                 }}
                 id={join(range(startId, endId + 1), '-')}
             >
-            {
-                map(items, item => item.component)
-            }
-            <span
-                id={startId} //for click to remove
-                style={{
-                    color: '#583fcf',
-                    fontSize: '0.675em',
-                    fontWeight: 'bold',
-                    fontFamily: `"Roboto Condensed", "Arial Narrow", sans-serif`,
-                    marginLeft: 8,
-                    textTransform: 'uppercase'
-                }}
-            >{annotation===0 ? 'person' : 'org'}</span>
-            <span
-                style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    position: 'absolute',
-                    top: -7, left: -7,
-                    backgroundColor: '#444',
-                    color: 'white',
-                    fontSize: '0.9em',
-                    fontWeight: 'normal',
-                    width: 14,
-                    height: 14,
-                    borderRadius: '50%',
-                    margin: 'auto',
-                    transition: 'opacity 0.1s ease',
-                    userSelect: 'none',
-                    lineHeight: 1.1,
-                    fontFamily: 'sans-serif',
-                    verticalAlign: 'center'
-                }}
-            >x</span>
+                {
+                    map(items, item => item.component)
+                }
+                <span
+                    id={startId} //for click to remove
+                    style={{
+                        color: '#583fcf',
+                        fontSize: '0.675em',
+                        fontWeight: 'bold',
+                        fontFamily: `"Roboto Condensed", "Arial Narrow", sans-serif`,
+                        marginLeft: 8,
+                        textTransform: 'uppercase'
+                    }}
+                >{annotation===0 ? 'person' : 'org'}</span>
+                <span className='close_mark'>x</span>
+
+                <style jsx>
+                {
+                    `
+                    .close_mark{
+                        display: none;
+                        justify-content: center;
+                        align-items: center;
+                        position: absolute;
+                        top: -7px; left: -7px;
+                        background-color: #444;
+                        color: white;
+                        font-size: 0.9em;
+                        font-weight: normal;
+                        width: 14px;
+                        height: 14px;
+                        border-radius: 50%;
+                        margin: auto;
+                        transition: opacity 0.1s ease;
+                        user-select: none;
+                        line-height: 1.1;
+                        font-family: sans-serif;
+                        vertical-align: center;
+                    }
+                    .close_mark:hover {
+                        display: flex;
+                    }
+                    `
+                }
+                </style>
             </mark>
+            &nbsp;
+            </>
         }
 
         tags.splice(startIndex, 0, newItem)
