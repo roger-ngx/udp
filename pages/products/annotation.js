@@ -56,7 +56,9 @@ const Annotation = () => {
     useEffect(() => {
         setTags(map(split(text, ' '), (txt, index) => ({
             id: index,
-            component: <><span key={index} style={{display:'inline-block', lineHeight: 2}} id={index}>{txt}</span>&nbsp;</>
+            content: txt,
+            annotation: 'O',
+            component: <span key={index} style={{display:'inline-block', lineHeight: 2}} id={index}>{txt}&nbsp;</span>
         })))
     }, [text]);
 
@@ -70,12 +72,32 @@ const Annotation = () => {
         
         const startId = +selection.anchorNode.parentNode.id;
         const endId = +selection.extentNode.parentNode.id;
-        console.log(selection.anchorNode.parentNode.parentNode.id);
 
         console.log(startId, endId, isDbClick);
+        console.log('markedIndices', markedIndices);
 
-        if(intersection(range(startId, endId + 1), markedIndices).length > 0){
-            return;
+        if(startId === endId){
+            if(!isDbClick){
+                if(includes(markedIndices, startId)){
+                    const itemIndex= findIndex(tags, tag => includes(tag.id, startId));
+                    
+                    if(itemIndex >= 0){
+                        const item = tags[itemIndex];
+                        const ids = item.id.split('-').map(id => +id);
+    
+                        remove(markedIndices, index => includes(ids, index));
+                        console.log('markedIndices', markedIndices)
+                        setMarkedIndicies([...markedIndices]);
+    
+                        tags.splice(itemIndex, 1);
+    
+                        forEach(item.items, (item, index) => {
+                            tags.splice(itemIndex + index, 0, item);
+                        })
+                    }
+                }
+                return;
+            }
         }
 
         const dots = fintDotIndices(slice(words, startId, endId + 1), startId);
@@ -103,28 +125,9 @@ const Annotation = () => {
     }
 
     const processSelection = (startId, endId, isDbClick) => {
-        if(startId === endId){
-            if(!isDbClick){
-                if(includes(markedIndices, startId)){
-                    const itemIndex= findIndex(tags, tag => includes(tag.id, startId));
-                    
-                    if(itemIndex >= 0){
-                        const item = tags[itemIndex];
-                        const ids = item.id.split('-').map(id => +id);
-    
-                        remove(markedIndices, index => includes(ids, index));
-                        console.log('markedIndices', markedIndices)
-                        setMarkedIndicies([...markedIndices]);
-    
-                        tags.splice(itemIndex, 1);
-    
-                        forEach(item.items, (item, index) => {
-                            tags.splice(itemIndex + index, 0, item);
-                        })
-                    }
-                }
-                return;
-            }
+
+        if(intersection(range(startId, endId + 1), markedIndices).length > 0){
+            return;
         }
 
         const startIndex = findIndex(tags, tag => tag.id == startId);
@@ -135,7 +138,8 @@ const Annotation = () => {
             return;
         }
         
-        setMarkedIndicies([...markedIndices, ...range(startId, endId + 1)]);
+        //problem when selecting with a dot
+        setMarkedIndicies(markedIndices => [...markedIndices, ...range(startId, endId + 1)]);
         // console.log(range(startIndex, endIndex + 1), markedIndices);
 
         const items = tags.splice(startIndex, endIndex-startIndex+1);
@@ -143,7 +147,7 @@ const Annotation = () => {
         const newItem ={
             id: join(range(startId, endId + 1), '-'),
             items,
-            component: <><mark
+            component: <mark
                 style={{
                     backgroundColor: '#ffe184',
                     position: 'relative',
@@ -175,7 +179,7 @@ const Annotation = () => {
                 {
                     `
                     .close_mark{
-                        display: none;
+                        display: flex;
                         justify-content: center;
                         align-items: center;
                         position: absolute;
@@ -200,9 +204,8 @@ const Annotation = () => {
                     `
                 }
                 </style>
-            </mark>
             &nbsp;
-            </>
+            </mark>
         }
 
         tags.splice(startIndex, 0, newItem)
