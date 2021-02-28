@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardHeader, CardContent, Paper, TextField } from '@material-ui/core';
+import { Card, CardHeader, CardContent, Paper, Button } from '@material-ui/core';
 import { split, map, trim, forEach, findIndex, slice, range, remove, intersection, includes, join } from 'lodash';
 
 const HeaderTag = ({name, index, backgroundColor, color, onClick}) => {
@@ -67,6 +67,16 @@ const Annotation = () => {
         logSelection(true);
     }
 
+    const printAnnotation = () => {
+        forEach(tags, tag => {
+            if(tag.items){
+                forEach(tag.items, item => console.log(item.annotation + ' '));
+            }else{
+                console.log(tag.annotation + ' ')
+            }
+        })
+    }
+
     function logSelection(isDbClick) {
         const selection = window.getSelection();
         
@@ -83,6 +93,8 @@ const Annotation = () => {
                     
                     if(itemIndex >= 0){
                         const item = tags[itemIndex];
+                        item.annotation = annotation===0 ? 'PER-B' : 'ORG-B';
+
                         const ids = item.id.split('-').map(id => +id);
     
                         remove(markedIndices, index => includes(ids, index));
@@ -100,7 +112,7 @@ const Annotation = () => {
             }
         }
 
-        const dots = fintDotIndices(slice(words, startId, endId + 1), startId);
+        const dots = findDotIndices(slice(words, startId, endId + 1), startId);
         dots.unshift(startId - 1);
         dots.push(endId + 1);
 
@@ -111,7 +123,7 @@ const Annotation = () => {
         }
     }
 
-    const fintDotIndices = (words, startId) => {
+    const findDotIndices = (words, startId) => {
         console.log(words);
         const dots = [];
 
@@ -142,7 +154,13 @@ const Annotation = () => {
         setMarkedIndicies(markedIndices => [...markedIndices, ...range(startId, endId + 1)]);
         // console.log(range(startIndex, endIndex + 1), markedIndices);
 
-        const items = tags.splice(startIndex, endIndex-startIndex+1);
+        const items = map(tags.splice(startIndex, endIndex-startIndex+1), (item, index) => {
+            const ann =  annotation===0 ? 'PER' : 'ORG';
+            const postfix = index === 0 ? '-B' : '-I';
+
+            item.annotation = ann + postfix;
+            return item;
+        });
 
         const newItem ={
             id: join(range(startId, endId + 1), '-'),
@@ -250,6 +268,13 @@ const Annotation = () => {
                 }
             </div>
         </Paper>
+        <Button
+            color='primary'
+            variant='outlined'
+            onClick={printAnnotation}
+        >
+            Print
+        </Button>
         <style jsx>
         {
             `
