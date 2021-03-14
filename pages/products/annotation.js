@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardHeader, CardContent, Paper, Button } from '@material-ui/core';
-import { split, map, trim, forEach, findIndex, slice, range, remove, intersection, includes, join } from 'lodash';
+import { Card, CardHeader, CardContent, Paper, Button, IconButton } from '@material-ui/core';
+import { split, map, trim, forEach, findIndex, slice, range, remove, intersection, includes, join, size, get } from 'lodash';
+
+import CheckIcon from '@material-ui/icons/Check';
+import CloseIcon from '@material-ui/icons/Close';
+import KeyboardTabIcon from '@material-ui/icons/KeyboardTab';
+import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
 
 const HeaderTag = ({name, index, backgroundColor, color, onClick}) => {
 
@@ -13,7 +18,7 @@ const HeaderTag = ({name, index, backgroundColor, color, onClick}) => {
             border: `1px solid ${color}`,
             borderRadius: 2,
 
-            marginRight: 8,
+            margin: 8,
             padding: 4,
             alignItems: 'flex-end',
             cursor: 'pointer'
@@ -35,32 +40,105 @@ const HeaderTag = ({name, index, backgroundColor, color, onClick}) => {
     </div>)
 }
 
+let init = true;
+
+const ANNOTATION_TYPES = [
+    {code: 'PER', type: 'person'},
+    {code: 'ORG', type: 'org'},
+    {code: 'EVT', type: 'event'},
+    {code: 'DAT', type: 'data'},
+    {code:'LOC', type: 'location'},
+    {code:'CVL', type: 'civilization'},
+    {code:'TRM', type:'term'},
+    {code:'ANM', type: 'animal'},
+    {code:'NUM', type: 'number'}
+];
+
 const Annotation = () => {
 
-    const text = trim("From 53-3 overnight, England's only goal on the fourth day was to survive as long as possible on a pitch offering huge and unpredictable turn as well as occasional spitting bounce . Dan Lawrence tried to be proactive, running at Ashwin's first ball to be nutmegged, with Pant completing a spectacular diving stumping . In contrast, Ben Stokes was almost shot-less, tormented by Ashwin in making eight from 51 balls before he offered a bat-pad catch.");
-    const words = split(text, ' ');
-    const spaceIndices = [];
+    const [texts, setTexts] = useState([]);
+    const [annotations, setAnnotations] = useState([]); 
+    const [currentIndex, setCurrentIndex] = useState(0);
 
+    const [currentText, setCurrentText] = useState(null);
+    const [currentAnnotation, setCurrentAnnotation] = useState(null);
+    
+    const [words, setWords] = useState([]);
+    // const spaceIndices = [];
     const [ tags, setTags ] = useState([]);
 
     const [ markedIndices, setMarkedIndicies ] = useState([]);
 
-    const [ annotation, setAnnotation ] = useState(0);
+    const [ annotationType, setAnnotationType ] = useState(0);
 
     useEffect(() => {
-        forEach(text, (c, index) => {
-            c === ' ' && spaceIndices.push(index);
-        });
+        initData();
     }, []);
 
     useEffect(() => {
-        setTags(map(split(text, ' '), (txt, index) => ({
+        if(!currentText) return;
+
+        console.log(currentText, currentAnnotation);
+
+        setTags(map(split(currentText, ' '), (txt, index) => ({
             id: index,
             content: txt,
-            annotation: 'O',
+            annotation: get(split(currentAnnotation,' '), `${index}`, 'O'),
             component: <span key={index} style={{display:'inline-block', lineHeight: 2}} id={index}>{txt}&nbsp;</span>
-        })))
-    }, [text]);
+        })));
+
+        init = true;
+
+        setWords(split(currentText, ' '));
+    }, [currentText, currentAnnotation]);
+
+    useEffect(() => {
+        if(!init || !size(tags)) return;
+        console.log(tags);
+
+        let startIndex, endIndex;
+        const tempTags = [];
+
+        forEach(tags, (tag, index) => {
+            if(!tag) return;
+
+            console.log(tag.annotation);
+            if(tag.annotation.includes('-B')){
+
+                startIndex = index;
+                const nextAnnotation = get(tags, `${index+1}.annotation`);
+                if(!nextAnnotation || !nextAnnotation.includes('-I')){
+                    endIndex = index;
+                }
+            }
+            if(tag.annotation.includes('-I') && (index === size(tags) -1 || !includes(get(tags, `${index+1}.annotation`,'-I')))){
+                endIndex = index;
+            }
+
+            if(startIndex>=0 && endIndex>=0){
+                console.log(startIndex, endIndex);
+
+                tempTags.push(generateSelectedAnnotation(startIndex, endIndex, tags[startIndex].id, tags[endIndex].id, tag.annotation.split('-')[0]));
+                startIndex = -1;
+                endIndex = -1;
+            } else {
+                tag.annotation === 'O' && tempTags.push(tag);
+            }
+        });
+        init = false;
+
+        console.log(tempTags)
+
+        setTags(tempTags)
+    }, [tags]);
+
+    useEffect(() => {
+        console.log(currentIndex);
+        if(currentIndex > 0){
+            setCurrentText(texts[currentIndex]);
+            setCurrentAnnotation(annotations[currentIndex]);
+        }
+    }, [currentIndex]);
 
     const doubleClickEventHandler = (e) => {
         console.log('db click got fired');
@@ -68,13 +146,20 @@ const Annotation = () => {
     }
 
     const printAnnotation = () => {
+        let text = '';
+        let annotation ='';
+
         forEach(tags, tag => {
             if(tag.items){
-                forEach(tag.items, item => console.log(item.annotation + ' '));
+                forEach(tag.items, item => annotation += item.annotation + ' ');
             }else{
-                console.log(tag.annotation + ' ')
+                text += tag.content + ' ';
+                annotation += tag.annotation + ' ';
             }
         })
+
+        console.log(text);
+        console.log(annotation);
     }
 
     function logSelection(isDbClick) {
@@ -91,9 +176,9 @@ const Annotation = () => {
                 if(includes(markedIndices, startId)){
                     const itemIndex= findIndex(tags, tag => includes(tag.id, startId));
                     
-                    if(itemIndex >= 0){
+                    if(itemIndex >= 0) {
                         const item = tags[itemIndex];
-                        item.annotation = annotation===0 ? 'PER-B' : 'ORG-B';
+                        item.annotation = annotationType + '-B';
 
                         const ids = item.id.split('-').map(id => +id);
     
@@ -136,7 +221,7 @@ const Annotation = () => {
         return dots;
     }
 
-    const processSelection = (startId, endId, isDbClick) => {
+    const processSelection = (startId, endId) => {
 
         if(intersection(range(startId, endId + 1), markedIndices).length > 0){
             return;
@@ -146,6 +231,16 @@ const Annotation = () => {
         const endIndex = findIndex(tags, tag => tag.id == endId);
         console.log(range(startId, endId + 1), markedIndices);
 
+        const newItem = generateSelectedAnnotation(startIndex, endIndex, startId, endId, annotationType);
+
+        tags.splice(startIndex, endIndex - startIndex + 1);
+
+        tags.splice(startIndex, 0, newItem)
+
+        setTags([...tags]);
+    }
+
+    const generateSelectedAnnotation = (startIndex, endIndex, startId, endId, annotation) => {
         if(startIndex < 0 || endIndex < 0){
             return;
         }
@@ -154,15 +249,14 @@ const Annotation = () => {
         setMarkedIndicies(markedIndices => [...markedIndices, ...range(startId, endId + 1)]);
         // console.log(range(startIndex, endIndex + 1), markedIndices);
 
-        const items = map(tags.splice(startIndex, endIndex-startIndex+1), (item, index) => {
-            const ann =  annotation===0 ? 'PER' : 'ORG';
+        const items = map(tags.slice(startIndex, endIndex+1), (item, index) => {
             const postfix = index === 0 ? '-B' : '-I';
 
-            item.annotation = ann + postfix;
+            item.annotation = annotation + postfix;
             return item;
         });
 
-        const newItem ={
+        return {
             id: join(range(startId, endId + 1), '-'),
             items,
             component: <mark
@@ -173,7 +267,8 @@ const Annotation = () => {
                     padding: '0.25em 0.4em',
                     fontWeight: 'bold',
                     color: '#444',
-                    flexWrap: 'wrap'
+                    flexWrap: 'wrap',
+                    marginRight: 4
                 }}
                 id={join(range(startId, endId + 1), '-')}
             >
@@ -190,7 +285,7 @@ const Annotation = () => {
                         marginLeft: 8,
                         textTransform: 'uppercase'
                     }}
-                >{annotation===0 ? 'person' : 'org'}</span>
+                >{annotation}</span>
                 <span className='close_mark'>x</span>
 
                 <style jsx>
@@ -222,59 +317,140 @@ const Annotation = () => {
                     `
                 }
                 </style>
-            &nbsp;
             </mark>
         }
+    }
 
-        tags.splice(startIndex, 0, newItem)
+    const initData = () => {
+        fetch('/testset.tsv').then(res => res.text()).then(processFileData)
+    }
 
-        setTags([...tags]);
+    const processFileData = data => {
+        const rows = data.split('\n');
+
+        for(let i = 1; i < rows.length; i++){
+            const row = rows[i];
+            const [text, annotation] = row.split('\t');
+            texts.push(text);
+            annotations.push(annotation);
+        }
+        console.log(texts);
+
+        setTexts(texts);
+        setAnnotations(annotations);
+
+        if(rows.length > 1){
+            //update states on sequence
+            setCurrentAnnotation(currentAnnotation => annotations[currentIndex]);
+            setCurrentText(currentText => texts[currentIndex]);
+        }
+    }
+
+    const fileUploadedHandle = e => {
+        console.log(e.target.files);
+
+        const fileReader = new FileReader();
+
+        fileReader.onload = () => {
+            processFileData(fileReader.result);
+        }
+        fileReader.readAsText(e.target.files[0]);
+
+    }
+
+    const generateTSVFile = () => {
+        var tsv = `text\tannotation`;
+
+        forEach(texts, (text, index) => {
+            tsv += `\n${text}\t${annotations[index]}`;
+        })
+        window.location.href = "data:text/tab-separated-values," + encodeURIComponent(tsv);
     }
 
     return (<div style={{}}>
-        <Paper style={{width: 500, marginRight: 'auto', marginLeft: 'auto', marginTop: '20%'}}>
+        <Paper style={{width: 500, margin: 'auto'}}>
             <div
-                style={{backgroundColor: '#583fcf', display: 'flex', flexDirection: 'row', padding: 16}}
+                style={{backgroundColor: '#583fcf', display: 'flex', flexDirection: 'row', flexWrap: 'wrap', padding: 16}}
             >
-                <HeaderTag
-                    name='person'
-                    index='1'
-                    backgroundColor={annotation === 0 ? 'white' : '#583fcf'}
-                    color={annotation === 0 ? '#583fcf' : 'white'}
-                    onClick={() => setAnnotation(0)}
-                />
-                <HeaderTag
-                    name='org'
-                    index='2'
-                    backgroundColor={annotation === 1 ? 'white' : '#583fcf'}
-                    color={annotation === 1 ? '#583fcf' : 'white'}
-                    onClick={() => setAnnotation(1)}
-                />
+                {
+                    map(ANNOTATION_TYPES, (annotation, index) => (
+                        <HeaderTag
+                            name={annotation.code}
+                            index={index}
+                            backgroundColor={annotationType === annotation.code ? 'white' : '#583fcf'}
+                            color={annotationType === annotation.code ? '#583fcf' : 'white'}
+                            onClick={() => setAnnotationType(annotation.code)}
+                        />
+                    ))
+                }
             </div>
 
             {/* https://stackoverflow.com/questions/10666032/why-does-span-break-outside-div-when-margin-and-padding-is-applied/10666138 */}
-            <div
-                style={{
-                    padding: 16,
-                    fontFamily: `"Lato", "Trebuchet MS", Roboto, Helvetica, Arial, sans-serif`,
-                    wordWrap: 'break-word',
-                    // whiteSpace: 'pre-wrap'
-                }}
-                onMouseUp={() => logSelection(false)}
-                onDoubleClick={() => logSelection(true)}
-            >
-                {
-                    map(tags, tag => tag.component)
-                }
-            </div>
+            
+            {
+                size(tags) > 0 ?
+                <div
+                    style={{
+                        padding: 16,
+                        fontFamily: `"Lato", "Trebuchet MS", Roboto, Helvetica, Arial, sans-serif`,
+                        wordWrap: 'break-word',
+                        // whiteSpace: 'pre-wrap'
+                    }}
+                    onMouseUp={() => logSelection(false)}
+                    onDoubleClick={() => logSelection(true)}
+                >
+                    {
+                        map(tags, tag => tag.component)
+                    }
+                </div>
+                :
+                <div style={{padding: 24, display: 'flex', justifyContent: 'center'}}>
+                    <input
+                        style={{display: 'none'}}
+                        id='tsv_file_upload'
+                        multiple
+                        type='file'
+                        accept='.tsv'
+                        onChange={fileUploadedHandle}
+                    />
+                    <label htmlFor='tsv_file_upload'>
+                        <Button color='primary' variant='outlined' component='span'>
+                            Upload file
+                        </Button>
+                    </label>
+                </div>
+            }
         </Paper>
-        <Button
-            color='primary'
-            variant='outlined'
-            onClick={printAnnotation}
-        >
-            Print
-        </Button>
+
+        <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', position: 'absolute', bottom: 0, width: '100%'}}>
+            <div style={{display: 'flex', justifyContent: 'center'}}>
+                <input
+                    style={{display: 'none'}}
+                    id='tsv_file_upload'
+                    multiple
+                    type='file'
+                    accept='.tsv'
+                    onChange={fileUploadedHandle}
+                />
+                <label htmlFor='tsv_file_upload'>
+                    <IconButton component='span'>
+                        <InsertDriveFileIcon />
+                    </IconButton>
+                </label>
+            </div>
+            <IconButton onClick={generateTSVFile}>
+                <CheckIcon style={{color:'green'}}/>
+            </IconButton>
+            <IconButton>
+                <CloseIcon style={{color:'red'}}/>
+            </IconButton>
+            <IconButton
+                disabled={currentIndex >= size(texts)}
+                onClick={() => (currentIndex < size(texts) - 1) && setCurrentIndex(currentIndex + 1)}
+            >
+                <KeyboardTabIcon style={{color:'blue'}}/>
+            </IconButton>
+        </div>
         <style jsx>
         {
             `
