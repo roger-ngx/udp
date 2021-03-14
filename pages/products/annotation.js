@@ -4,8 +4,9 @@ import { split, map, trim, forEach, findIndex, slice, range, remove, intersectio
 
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
-import KeyboardTabIcon from '@material-ui/icons/KeyboardTab';
 import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
+import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
+import SkipNextIcon from '@material-ui/icons/SkipNext';
 
 const HeaderTag = ({name, index, backgroundColor, color, onClick}) => {
 
@@ -69,7 +70,7 @@ const Annotation = () => {
 
     const [ markedIndices, setMarkedIndicies ] = useState([]);
 
-    const [ annotationType, setAnnotationType ] = useState(0);
+    const [ annotationType, setAnnotationType ] = useState('PER');
 
     useEffect(() => {
         initData();
@@ -133,33 +134,16 @@ const Annotation = () => {
     }, [tags]);
 
     useEffect(() => {
-        console.log(currentIndex);
-        if(currentIndex > 0){
+        // console.log(currentIndex);
+        // if(currentIndex > 0){
             setCurrentText(texts[currentIndex]);
             setCurrentAnnotation(annotations[currentIndex]);
-        }
+        // }
     }, [currentIndex]);
 
     const doubleClickEventHandler = (e) => {
         console.log('db click got fired');
         logSelection(true);
-    }
-
-    const printAnnotation = () => {
-        let text = '';
-        let annotation ='';
-
-        forEach(tags, tag => {
-            if(tag.items){
-                forEach(tag.items, item => annotation += item.annotation + ' ');
-            }else{
-                text += tag.content + ' ';
-                annotation += tag.annotation + ' ';
-            }
-        })
-
-        console.log(text);
-        console.log(annotation);
     }
 
     function logSelection(isDbClick) {
@@ -358,6 +342,34 @@ const Annotation = () => {
 
     }
 
+    const saveCurrentText = () => {
+        let text = '';
+        let annotation ='';
+
+        forEach(tags, tag => {
+            if(tag.items){
+                forEach(tag.items, item => {
+                    annotation += item.annotation + ' ';
+                    text += item.content + ' ';
+                });
+            }else{
+                text += tag.content + ' ';
+                annotation += tag.annotation + ' ';
+            }
+        })
+
+        texts[currentIndex] = text;
+        annotations[currentIndex] = annotation;
+
+        console.log(text, annotation)
+        alert('saved');
+    }
+
+    const resetCurrentText = () => {
+        setCurrentAnnotation(currentAnnotation => annotations[currentIndex]);
+        setCurrentText(currentText => texts[currentIndex]);
+    }
+
     const generateTSVFile = () => {
         var tsv = `text\tannotation`;
 
@@ -438,17 +450,23 @@ const Annotation = () => {
                     </IconButton>
                 </label>
             </div>
-            <IconButton onClick={generateTSVFile}>
+            <IconButton onClick={saveCurrentText}>
                 <CheckIcon style={{color:'green'}}/>
             </IconButton>
-            <IconButton>
+            <IconButton onClick={resetCurrentText}>
                 <CloseIcon style={{color:'red'}}/>
+            </IconButton>
+            <IconButton
+                disabled={currentIndex == 0}
+                onClick={() => (currentIndex > 0) && setCurrentIndex(currentIndex - 1)}
+            >
+                <SkipPreviousIcon style={{color:'blue'}}/>
             </IconButton>
             <IconButton
                 disabled={currentIndex >= size(texts)}
                 onClick={() => (currentIndex < size(texts) - 1) && setCurrentIndex(currentIndex + 1)}
             >
-                <KeyboardTabIcon style={{color:'blue'}}/>
+                <SkipNextIcon style={{color:'blue'}}/>
             </IconButton>
         </div>
         <style jsx>
