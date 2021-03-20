@@ -161,6 +161,7 @@ const Annotation = () => {
                 if(includes(markedIndices, startId)){
                     const itemIndex= findIndex(tags, tag => includes(tag.id, startId));
                     
+                    //process remove an annotation
                     if(itemIndex >= 0) {
                         const item = tags[itemIndex];
                         item.annotation = annotationType + '-B';
@@ -174,6 +175,8 @@ const Annotation = () => {
                         tags.splice(itemIndex, 1);
     
                         forEach(item.items, (item, index) => {
+                            //now the removed annotation is just an object
+                            item.annotation = 'O';
                             tags.splice(itemIndex + index, 0, item);
                         })
                     }
