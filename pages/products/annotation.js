@@ -366,8 +366,18 @@ const Annotation = () => {
     }
 
     const resetCurrentText = () => {
-        setCurrentAnnotation(currentAnnotation => annotations[currentIndex]);
-        setCurrentText(currentText => texts[currentIndex]);
+        setTags(map(split(currentText, ' '), (txt, index) => ({
+            id: index,
+            content: txt,
+            annotation: get(split(currentAnnotation,' '), `${index}`, 'O'),
+            component: <span key={index} style={{display:'inline-block', lineHeight: 2}} id={index}>{txt}&nbsp;</span>
+        })));
+
+        setMarkedIndicies([]);
+
+        init = true;
+
+        setWords(split(currentText, ' '));
     }
 
     const generateTSVFile = () => {
