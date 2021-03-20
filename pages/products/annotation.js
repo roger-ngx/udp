@@ -136,6 +136,7 @@ const Annotation = () => {
     useEffect(() => {
         // console.log(currentIndex);
         // if(currentIndex > 0){
+            setMarkedIndicies([]);
             setCurrentText(texts[currentIndex]);
             setCurrentAnnotation(annotations[currentIndex]);
         // }
