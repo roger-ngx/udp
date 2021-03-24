@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardContent, Paper, Button, IconButton } from '@material-ui/core';
-import { split, map, trim, forEach, findIndex, slice, range, remove, intersection, includes, join, size, get } from 'lodash';
+import { split, map, isEmpty, forEach, findIndex, slice, range, remove, intersection, includes, join, size, get } from 'lodash';
 
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
@@ -72,14 +72,16 @@ const Annotation = () => {
 
     const [ annotationType, setAnnotationType ] = useState('PER');
 
+    const [ onFocusAnnotationId, setOnFocusAnnotationId ] = useState();
+
     useEffect(() => {
         initData();
     }, []);
 
     useEffect(() => {
-        if(!currentText) return;
+        if(isEmpty(currentText)) return;
 
-        console.log(currentText, currentAnnotation);
+        console.log('wtf ', currentText, currentAnnotation);
 
         setTags(map(split(currentText, ' '), (txt, index) => ({
             id: index,
@@ -91,7 +93,11 @@ const Annotation = () => {
         init = true;
 
         setWords(split(currentText, ' '));
-    }, [currentText, currentAnnotation]);
+    }, [currentText]);
+
+    useEffect(() => {
+        console.log(onFocusAnnotationId);
+    }, [onFocusAnnotationId]);
 
     useEffect(() => {
         if(!init || !size(tags)) return;
@@ -244,10 +250,13 @@ const Annotation = () => {
             return item;
         });
 
+        const id = join(range(startId, endId + 1), '-');
+
         return {
-            id: join(range(startId, endId + 1), '-'),
+            id,
             items,
             component: <mark
+                key={onFocusAnnotationId}
                 style={{
                     backgroundColor: '#ffe184',
                     position: 'relative',
@@ -258,7 +267,9 @@ const Annotation = () => {
                     flexWrap: 'wrap',
                     marginRight: 4
                 }}
-                id={join(range(startId, endId + 1), '-')}
+                id={id}
+                onMouseEnter={() => setOnFocusAnnotationId(id)}
+                onMouseLeave={() => setOnFocusAnnotationId()}
             >
                 {
                     map(items, item => item.component)
@@ -274,7 +285,10 @@ const Annotation = () => {
                         textTransform: 'uppercase'
                     }}
                 >{annotation}</span>
-                <span className='close_mark'>x</span>
+                {
+                    onFocusAnnotationId == id &&
+                    <span className='close_mark'>x</span>
+                }
 
                 <style jsx>
                 {
@@ -315,22 +329,32 @@ const Annotation = () => {
 
     const processFileData = data => {
         const rows = data.split('\n');
+        const _texts = [];
+        const _annotations = [];
 
-        for(let i = 1; i < rows.length; i++){
+        // setTexts([]);
+        // setAnnotations([]);
+        // setCurrentText(currentText => null);
+        // setCurrentAnnotation(currentAnnotation => null);
+
+        console.log('rows', rows);
+        
+        for(let i = 0; i < rows.length; i++){
             const row = rows[i];
             const [text, annotation] = row.split('\t');
-            texts.push(text);
-            annotations.push(annotation);
+            _texts.push(text);
+            _annotations.push(annotation);
         }
-        console.log(texts);
-
-        setTexts(texts);
-        setAnnotations(annotations);
-
-        if(rows.length > 1){
+        console.log(_texts[0], _annotations[0]);
+        
+        setTexts(_texts);
+        setAnnotations(_annotations);
+        
+        if(rows.length > 0){
             //update states on sequence
-            setCurrentAnnotation(currentAnnotation => annotations[currentIndex]);
-            setCurrentText(currentText => texts[currentIndex]);
+            setCurrentIndex(currentIndex => 0);
+            setCurrentAnnotation(currentAnnotation => _annotations[0]);
+            setCurrentText(currentText => _texts[0]);
         }
     }
 
@@ -457,6 +481,7 @@ const Annotation = () => {
                     type='file'
                     accept='.tsv'
                     onChange={fileUploadedHandle}
+                    onClick={e => e.target.value = null}
                 />
                 <label htmlFor='tsv_file_upload'>
                     <IconButton component='span'>
