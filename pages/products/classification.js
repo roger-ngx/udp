@@ -237,6 +237,21 @@ const Annotation = () => {
         </div>
 
         <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', position: 'fixed', bottom: 0, width: '100%', backgroundColor: 'white'}}>
+            <Button
+                color='primary'
+                variant='outlined'
+                onClick={() => {
+                    const data = `Action is an, originally Dutch, international discount store-chain, owned by the British private-equity fund 3i. It sells low budget, non-food and some food products with long shelf lives. Action operates stores in seven countries — Netherlands, Belgium, Germany, France, Austria, Luxembourg, Poland And Czech Republic.	action
+                    An adventure is an exciting experience that is typically bold, sometimes risky, undertaking. Adventures may be activities with some potential for physical danger such as traveling, exploring, skydiving, mountain climbing, scuba diving, river rafting or participating in extreme sports.	adventure`
+                    const url = URL.createObjectURL(new Blob([data], { type: 'text/tab-separated-values' }))
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', 'template.tsv');
+                    link.click();
+                }}
+            >
+                Template
+            </Button>
             <div style={{display: 'flex', justifyContent: 'center'}}>
                 <input
                     style={{display: 'none'}}
