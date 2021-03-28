@@ -76,8 +76,6 @@ const ClassificationSelection = ({index, label, value, check=false, onChange}) =
             <Radio
                 checked={check}
                 value={label}
-                name="radio-button-demo"
-                inputProps={{ 'aria-label': 'A' }}
             />
             <p>{label}</p>
             <div
