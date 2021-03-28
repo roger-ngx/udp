@@ -91,7 +91,7 @@ const ClassificationSelection = ({index, label, value, check=false, onChange}) =
                     alignItems: 'center'
                 }}
             >
-                <p>{index}</p>
+                <p>{index===10 ? '-' : index}</p>
             </div>
             <style jsx>
                 {
@@ -192,7 +192,21 @@ const Annotation = () => {
     // const classes = useStyles();
 
     return (<>
-        <div style={{display: 'flex', justifyContent: 'center', marginBottom: 200}}>
+        <div
+            tabIndex="0"
+            style={{display: 'flex', justifyContent: 'center', marginBottom: 200}}
+            onKeyDown={e => {
+                const { keyCode } = e;
+                console.log(keyCode);
+                if(keyCode >= 48 && keyCode <=57){
+                    setSelectedClass(CLASSIFICATIONS[keyCode - 48].value);
+                }
+
+                if(keyCode === 189){
+                    setSelectedClass(CLASSIFICATIONS[10].value);
+                }
+            }}
+        >
             <Paper
                 style={{
                     width: 500,
