@@ -296,7 +296,11 @@ const Annotation = () => {
             
             ::selection {
                 background: #ffe184;
-            }              
+            }
+            
+            div:focus {
+                outline: none;
+            }         
             `
         }
         </style>
