@@ -285,10 +285,7 @@ const Annotation = () => {
                         textTransform: 'uppercase'
                     }}
                 >{annotation}</span>
-                {
-                    onFocusAnnotationId == id &&
-                    <span className='close_mark'>x</span>
-                }
+                <span className='close_mark'>x</span>
 
                 <style jsx>
                 {
@@ -313,8 +310,8 @@ const Annotation = () => {
                         font-family: sans-serif;
                         vertical-align: center;
                     }
-                    .close_mark:hover {
-                        display: flex;
+                    .close_mark:hover{
+                        background-color: red;
                     }
                     `
                 }
