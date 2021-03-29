@@ -291,7 +291,7 @@ const Annotation = () => {
                 {
                     `
                     .close_mark{
-                        display: flex;
+                        display: none;
                         justify-content: center;
                         align-items: center;
                         position: absolute;
