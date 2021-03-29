@@ -414,7 +414,17 @@ const Annotation = () => {
         window.location.href = "data:text/tab-separated-values," + encodeURIComponent(tsv);
     }
 
-    return (<div style={{}}>
+    return (<div
+        style={{height: '100vh', outline: 'none'}}
+        tabIndex="0"
+        onKeyDown={e => {
+            const { keyCode } = e;
+            console.log(keyCode);
+            if(keyCode >= 48 && keyCode <=56){
+                setAnnotationType(ANNOTATION_TYPES[keyCode - 48].code);
+            }
+        }}
+    >
         <Paper style={{width: 500, margin: 'auto'}}>
             <div
                 style={{backgroundColor: '#583fcf', display: 'flex', flexDirection: 'row', flexWrap: 'wrap', padding: 16}}
