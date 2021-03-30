@@ -72,8 +72,6 @@ const Annotation = () => {
 
     const [ annotationType, setAnnotationType ] = useState('PER');
 
-    const [ onFocusAnnotationId, setOnFocusAnnotationId ] = useState();
-
     useEffect(() => {
         initData();
     }, []);
@@ -94,10 +92,6 @@ const Annotation = () => {
 
         setWords(split(currentText, ' '));
     }, [currentText]);
-
-    useEffect(() => {
-        console.log(onFocusAnnotationId);
-    }, [onFocusAnnotationId]);
 
     useEffect(() => {
         if(!init || !size(tags)) return;
@@ -143,8 +137,8 @@ const Annotation = () => {
         // console.log(currentIndex);
         // if(currentIndex > 0){
             setMarkedIndicies([]);
-            setCurrentText(texts[currentIndex]);
-            setCurrentAnnotation(annotations[currentIndex]);
+            setCurrentAnnotation(currentAnnotation => annotations[currentIndex]);
+            setCurrentText(currentText => texts[currentIndex]);
         // }
     }, [currentIndex]);
 
@@ -256,7 +250,6 @@ const Annotation = () => {
             id,
             items,
             component: <mark
-                key={onFocusAnnotationId}
                 style={{
                     backgroundColor: '#ffe184',
                     position: 'relative',
@@ -268,8 +261,7 @@ const Annotation = () => {
                     marginRight: 4
                 }}
                 id={id}
-                onMouseEnter={() => setOnFocusAnnotationId(id)}
-                onMouseLeave={() => setOnFocusAnnotationId()}
+                className='annotation'
             >
                 {
                     map(items, item => item.component)
@@ -310,8 +302,8 @@ const Annotation = () => {
                         font-family: sans-serif;
                         vertical-align: center;
                     }
-                    .close_mark:hover{
-                        background-color: red;
+                    .annotation:hover .close_mark{
+                        display: flex;
                     }
                     `
                 }
