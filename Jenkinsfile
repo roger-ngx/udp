@@ -1,6 +1,6 @@
 node {
   stage('Static Analysis') {
-    withSonarQubeEnv('SonarQube Scanner') 
+    withSonarQubeEnv('sonarqube Server') 
     {
       bat 'mvn clean package sonar:sonar'
       echo 'Static Analysis Completed' 
