@@ -2,7 +2,7 @@ node {
   stage('Static Analysis') {
     withSonarQubeEnv('sonarqube Server') 
     {
-      bat 'mvn clean package sonar:sonar'
+      sh 'mvn clean package sonar:sonar'
       echo 'Static Analysis Completed' 
     }
   }
