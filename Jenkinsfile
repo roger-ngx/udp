@@ -3,7 +3,7 @@ node {
     stage('Static Analysis') {
       withSonarQubeEnv('SonarQube Scanner') 
       {
-        bat 'mvn clean package sonar:sonar
+        bat 'mvn clean package sonar:sonar'
    	    echo 'Static Analysis Completed' 
       }
     }
