@@ -6,7 +6,7 @@ node {
         bat 'mvn clean package sonar:sonar
    	    echo 'Static Analysis Completed' 
       }
-   
+    }
     stage("Quality Gate"){
       timeout(time: 1, unit: 'HOURS') 
       {
