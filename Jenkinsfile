@@ -3,7 +3,7 @@ pipeline {
 
   tools {
     // Use the sonar scanner version installed in Jenkins tools configuration.
-    sonarQubeScanner 'SonarQube Scanner 5.0.1.3006'
+    sonarQubeScanner 'SonarQube Scanner'
   }
 
   environment {
@@ -23,7 +23,7 @@ pipeline {
         steps {
             script {
                 // Run sonar scanner. Modify sonar properties according to your needs.
-                def scannerHome = tool name: 'SonarQube Scanner 5.0.1.3006', type: 'SonarQube Scanner';
+                def scannerHome = tool name: 'SonarQube Scanner', type: 'SonarQube Scanner';
                 withSonarQubeEnv(SONARQUBE_SERVER) {
                     sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=sonarquebe-udp -Dsonar.sources=. -Dsonar.host.url=http://localhost:9000"
                 }
