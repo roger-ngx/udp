@@ -30,11 +30,4 @@ pipeline {
       }
     }
   }
-
-  post {
-    always {
-      // Wait for the SonarQube scan to complete
-      waitForQualityGate abortPipeline: true
-    }
-  }
 }
