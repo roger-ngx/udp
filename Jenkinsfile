@@ -21,10 +21,11 @@ pipeline {
       steps {
         withSonarQubeEnv(SONARQUBE_SERVER) {
           sh '''${scannerHome}/bin/sonar-scanner
+          -Dsonar.login=a2c104ed820764589c5fb629c382f1814072491a
+          Dsonar.host.url=http://localhost:9000
           -Dsonar.projectKey=sonarquebe-udp \
           -Dsonar.projectName=sonarquebe-udp \
-          -Dsonar.sources=pages/
-          '''
+          -Dsonar.sources=pages/'''
         }
       }
     }
