@@ -15,17 +15,16 @@ pipeline {
     }
 
     stage('SonarQube Analysis') {
+      environment {
+        scannerHome = tool 'SonarQube Scanner'
+      }
       steps {
-        script {
-          // Run sonar scanner. Modify sonar properties according to your needs.
-          def scannerHome = tool name: 'SonarQube Scanner';
-          withSonarQubeEnv(SONARQUBE_SERVER) {
-            sh '''${scannerHome}/bin/sonar-scanner
-            -Dsonar.projectKey=sonarquebe-udp \
-            -Dsonar.projectName=sonarquebe-udp \
-            -Dsonar.sources=pages/
-            '''
-          }
+        withSonarQubeEnv(SONARQUBE_SERVER) {
+          sh '''${scannerHome}/bin/sonar-scanner
+          -Dsonar.projectKey=sonarquebe-udp \
+          -Dsonar.projectName=sonarquebe-udp \
+          -Dsonar.sources=pages/
+          '''
         }
       }
     }
